@@ -17,6 +17,10 @@ mongoose.connection.once("open", () => {
   console.log("DB connection successful");
 });
 
+const carmakeRouter = require("./routes/carMake");
+
+app.use("/make", carmakeRouter);
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
