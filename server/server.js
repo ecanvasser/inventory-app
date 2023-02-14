@@ -19,9 +19,11 @@ mongoose.connection.once("open", () => {
 
 const carmakeRouter = require("./routes/carMake");
 const carmodelRouter = require("./routes/carModel");
+const categoryRouter = require("./routes/category");
 
 app.use("/makes", carmakeRouter);
-app.use('/models', carmodelRouter);
+app.use("/models", carmodelRouter);
+app.use("/product-categories", categoryRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
