@@ -18,8 +18,10 @@ mongoose.connection.once("open", () => {
 });
 
 const carmakeRouter = require("./routes/carMake");
+const carmodelRouter = require("./routes/carModel");
 
-app.use("/make", carmakeRouter);
+app.use("/makes", carmakeRouter);
+app.use('/models', carmodelRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
