@@ -1,7 +1,10 @@
+import Mainchart from "./Mainchart"
+
 const Dashboard = () => {
     return (
         <main className="text-4xl font-extrabold pt-24 pl-24">
-            Dashboard
+            <div id="section-title">Dashboard</div>
+            <Mainchart />
         </main>
     )
 }
