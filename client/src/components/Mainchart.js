@@ -1,4 +1,5 @@
 import Middleicons from "./Middleicons";
+import Bottomicons from "./Bottomicons";
 
 const Mainchart = () => {
   return (
@@ -25,6 +26,9 @@ const Mainchart = () => {
       </div>
       <div id="middle-icons" className="w-10/12 grid grid-cols-2 gap-5 mt-5">
         <Middleicons />
+      </div>
+      <div id="bottom-icons" className="w-10/12 grid grid-cols-2 gap-5 mt-5">
+        <Bottomicons />
       </div>
     </>
   );
