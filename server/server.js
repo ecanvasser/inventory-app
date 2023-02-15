@@ -20,9 +20,11 @@ mongoose.connection.once("open", () => {
 const carmakeRouter = require("./routes/carMake");
 const carmodelRouter = require("./routes/carModel");
 const categoryRouter = require("./routes/category");
+const productRouter = require("./routes/products");
 
 app.use("/makes", carmakeRouter);
 app.use("/models", carmodelRouter);
+app.use("/products", productRouter);
 app.use("/product-categories", categoryRouter);
 
 app.listen(port, () => {
