@@ -1,8 +1,8 @@
 import Middleicons from "./Middleicons";
 import Bottomicons from "./Bottomicons";
-import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { BiCategory } from 'react-icons/bi'
-import { MdOutlineMonetizationOn } from 'react-icons/md'
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { BiCategory } from "react-icons/bi";
+import { MdOutlineMonetizationOn } from "react-icons/md";
 
 const Mainchart = () => {
   return (
