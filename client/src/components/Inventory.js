@@ -135,32 +135,37 @@ const Inventory = () => {
     );
   }
 
-  return (
-    <div
-      id="inventory-container"
-      className="grid grid-cols-[0.4fr_1.6fr] h-screen"
-    >
-      <Navbar />
+  if (products) {
+    return (
       <div
-        id="products"
-        className="py-16 pl-24 animate__animated animate__slideInDown"
+        id="inventory-container"
+        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
       >
-        <div className="text-4xl font-extrabold">Inventory</div>
-        <InventoryFilters
-          makes={makes}
-          categories={categories}
-          handleMakeFilter={selectMakeFilter}
-          handleCategoryFilter={selectCategoryFilter}
-        />
-        <div id="product-filters" className="flex"></div>
-        <div id="product-rows" className="mt-16 w-11/12 grid grid-cols-1 gap-4">
-          {products.map((obj, i) => {
-            return <InventoryTile data={obj} key={obj._id} />;
-          })}
+        <Navbar />
+        <div
+          id="products"
+          className="py-16 pl-24 animate__animated animate__slideInDown"
+        >
+          <div className="text-4xl font-extrabold">Inventory</div>
+          <InventoryFilters
+            makes={makes}
+            categories={categories}
+            handleMakeFilter={selectMakeFilter}
+            handleCategoryFilter={selectCategoryFilter}
+          />
+          <div id="product-filters" className="flex"></div>
+          <div
+            id="product-rows"
+            className="mt-16 w-11/12 grid grid-cols-1 gap-4"
+          >
+            {products.map((obj, i) => {
+              return <InventoryTile data={obj} key={obj._id} />;
+            })}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Inventory;
