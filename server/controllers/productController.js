@@ -15,6 +15,7 @@ exports.get_products = function (req, res) {
       res.send(
         result.map((obj) => {
           return {
+            _id: obj._id,
             make: obj.model.make.name,
             model: obj.model.model,
             category: obj.category.name,
