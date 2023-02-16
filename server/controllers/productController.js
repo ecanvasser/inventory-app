@@ -1,12 +1,17 @@
 const Product = require("../models/product.model");
 
 exports.get_products = function (req, res) {
-  Product.find().populate("model category").exec((err, result) => {
-    if (err) {
-      res.status(404).json("Error: " + err);
-    }
-    res.send(result);
-  });
+  Product.find()
+    .populate({
+      path: "model",
+      populate: { path: "make", model: "Make" },
+    })
+    .exec((err, result) => {
+      if (err) {
+        res.status(404).json("Error: " + err);
+      }
+      res.send(result);
+    });
 };
 
 exports.add_product = function (req, res) {
