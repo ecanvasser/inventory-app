@@ -2,15 +2,28 @@ const Product = require("../models/product.model");
 
 exports.get_products = function (req, res) {
   Product.find()
+    .populate({ path: "category", select: "name" })
     .populate({
       path: "model",
-      populate: { path: "make", model: "Make" },
+      select: "model",
+      populate: { path: "make", model: "Make", select: "name" },
     })
     .exec((err, result) => {
       if (err) {
         res.status(404).json("Error: " + err);
       }
-      res.send(result);
+      res.send(
+        result.map((obj) => {
+          return {
+            make: obj.model.make.name,
+            model: obj.model.model,
+            category: obj.category.name,
+            name: obj.name,
+            price: obj.price,
+            quantity: obj.quantity,
+          };
+        })
+      );
     });
 };
 
