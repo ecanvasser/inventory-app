@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import "animate.css";
+import InventoryTile from "./InventoryTile";
 import { useState, useEffect } from "react";
 
 const Inventory = () => {
@@ -13,33 +14,37 @@ const Inventory = () => {
         const data = await response.json();
         setProducts(data);
       } catch (err) {
-        setError('Something went bad!')
+        setError("Something went bad!");
       }
     };
     fetchProducts();
   }, []);
 
   if (err) {
-    return err
+    return err;
   }
 
-  return (
-    <div
-      id="inventory-container"
-      className="grid grid-cols-[0.4fr_1.6fr] h-screen"
-    >
-      <Navbar />
+  if (products) {
+    return (
       <div
-        id="products"
-        className="py-16 pl-32 animate__animated animate__slideInDown"
+        id="inventory-container"
+        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
       >
-        <div className="text-4xl font-extrabold">Inventory</div>
-        <div id="product-rows" className="mt-16">
-          Content
+        <Navbar />
+        <div
+          id="products"
+          className="py-16 pl-24 animate__animated animate__slideInDown"
+        >
+          <div className="text-4xl font-extrabold">Inventory</div>
+          <div id="product-rows" className="mt-16 w-11/12 grid grid-cols-1 gap-4">
+            {products.map((obj, i) => {
+              return <InventoryTile data={obj} key={obj._id} />;
+            })}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Inventory;
