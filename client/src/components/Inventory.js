@@ -6,9 +6,10 @@ import { useState, useEffect } from "react";
 
 const Inventory = () => {
   const [products, setProducts] = useState();
-  const [filteredProducts, setFilteredProducts] = useState();
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [makes, setMakes] = useState();
   const [makeFilter, setMakeFilter] = useState();
+  const [categoryFilter, setCategoryFilter] = useState();
   const [categories, setCategories] = useState();
   const [err, setError] = useState();
 
@@ -56,19 +57,34 @@ const Inventory = () => {
     fetchCategories();
   }, []);
 
+  // Handles filter logic on inventory display
   useEffect(() => {
     if (products) {
-      const filteredArray = products.filter((obj) => {
-        if (obj.make === makeFilter) {
-          return obj
+      const filterArray = products.filter((obj) => {
+        if (obj.make === makeFilter && obj.category === categoryFilter) {
+          return obj;
+        } else if (
+          obj.make === makeFilter &&
+          (categoryFilter === "-" || categoryFilter === undefined)
+        ) {
+          return obj;
+        } else if (
+          obj.category === categoryFilter &&
+          (makeFilter === "-" || makeFilter === undefined)
+        ) {
+          return obj;
         }
-      })
-      setFilteredProducts(filteredArray);
+      });
+      setFilteredProducts(filterArray);
     }
-  }, [makeFilter])
+  }, [makeFilter, categoryFilter]);
 
   const selectMakeFilter = (e) => {
     setMakeFilter(e.target.value);
+  };
+
+  const selectCategoryFilter = (e) => {
+    setCategoryFilter(e.target.value);
   };
 
   if (err) {
@@ -87,7 +103,7 @@ const Inventory = () => {
     </div>;
   }
 
-  if (products) {
+  if (filteredProducts.length > 0) {
     return (
       <div
         id="inventory-container"
@@ -103,13 +119,14 @@ const Inventory = () => {
             makes={makes}
             categories={categories}
             handleMakeFilter={selectMakeFilter}
+            handleCategoryFilter={selectCategoryFilter}
           />
           <div id="product-filters" className="flex"></div>
           <div
             id="product-rows"
             className="mt-16 w-11/12 grid grid-cols-1 gap-4"
           >
-            {products.map((obj, i) => {
+            {filteredProducts.map((obj, i) => {
               return <InventoryTile data={obj} key={obj._id} />;
             })}
           </div>
@@ -117,6 +134,33 @@ const Inventory = () => {
       </div>
     );
   }
+
+  return (
+    <div
+      id="inventory-container"
+      className="grid grid-cols-[0.4fr_1.6fr] h-screen"
+    >
+      <Navbar />
+      <div
+        id="products"
+        className="py-16 pl-24 animate__animated animate__slideInDown"
+      >
+        <div className="text-4xl font-extrabold">Inventory</div>
+        <InventoryFilters
+          makes={makes}
+          categories={categories}
+          handleMakeFilter={selectMakeFilter}
+          handleCategoryFilter={selectCategoryFilter}
+        />
+        <div id="product-filters" className="flex"></div>
+        <div id="product-rows" className="mt-16 w-11/12 grid grid-cols-1 gap-4">
+          {products.map((obj, i) => {
+            return <InventoryTile data={obj} key={obj._id} />;
+          })}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Inventory;
