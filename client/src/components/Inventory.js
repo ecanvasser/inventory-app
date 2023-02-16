@@ -13,7 +13,7 @@ const Inventory = () => {
         const data = await response.json();
         setProducts(data);
       } catch (err) {
-        setError('Something went bad!' + err)
+        setError('Something went bad!')
       }
     };
     fetchProducts();
