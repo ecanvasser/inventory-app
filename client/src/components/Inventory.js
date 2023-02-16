@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 const Inventory = () => {
   const [products, setProducts] = useState();
   const [makes, setMakes] = useState();
+  const [categories, setCategories] = useState();
   const [err, setError] = useState();
 
   // Fetch all product data for inventory grid
@@ -36,13 +37,32 @@ const Inventory = () => {
     fetchMakes();
   }, []);
 
+  // Fetch all product categories for inventory filters
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8000/product-categories/"
+        );
+        const data = await response.json();
+        setCategories(data);
+      } catch (err) {
+        setError(err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   if (err) {
     <div
       id="errPage-container"
       className="grid grid-cols-[0.4fr_1.6fr] h-screen"
     >
       <Navbar />
-      <div id="err-message" className="flex flex-col items-center justify-center">
+      <div
+        id="err-message"
+        className="flex flex-col items-center justify-center"
+      >
         <div className="text-3xl font-extrabold">Something went wrong!</div>
         <div className="italic">{err}</div>
       </div>
