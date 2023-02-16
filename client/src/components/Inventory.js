@@ -1,11 +1,14 @@
 import Navbar from "./Navbar";
 import "animate.css";
 import InventoryTile from "./InventoryTile";
+import InventoryFilters from "./InventoryFilters";
 import { useState, useEffect } from "react";
 
 const Inventory = () => {
   const [products, setProducts] = useState();
+  const [filteredProducts, setFilteredProducts] = useState();
   const [makes, setMakes] = useState();
+  const [makeFilter, setMakeFilter] = useState();
   const [categories, setCategories] = useState();
   const [err, setError] = useState();
 
@@ -53,6 +56,21 @@ const Inventory = () => {
     fetchCategories();
   }, []);
 
+  useEffect(() => {
+    if (products) {
+      const filteredArray = products.filter((obj) => {
+        if (obj.make === makeFilter) {
+          return obj
+        }
+      })
+      setFilteredProducts(filteredArray);
+    }
+  }, [makeFilter])
+
+  const selectMakeFilter = (e) => {
+    setMakeFilter(e.target.value);
+  };
+
   if (err) {
     <div
       id="errPage-container"
@@ -81,6 +99,11 @@ const Inventory = () => {
           className="py-16 pl-24 animate__animated animate__slideInDown"
         >
           <div className="text-4xl font-extrabold">Inventory</div>
+          <InventoryFilters
+            makes={makes}
+            categories={categories}
+            handleMakeFilter={selectMakeFilter}
+          />
           <div id="product-filters" className="flex"></div>
           <div
             id="product-rows"
