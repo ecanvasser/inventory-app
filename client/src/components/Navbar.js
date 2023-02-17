@@ -3,6 +3,7 @@ import { FaStore } from "react-icons/fa";
 import { AiOutlineTool } from "react-icons/ai";
 import { GrApps } from "react-icons/gr";
 import { IconContext } from "react-icons";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -12,24 +13,30 @@ const Navbar = () => {
           <GrApps />
         </IconContext.Provider>
       </div>
-      <div id="home" className="flex items-center gap-5">
-        <IconContext.Provider value={{ size: "1.3em" }}>
-          <AiOutlineHome />
-        </IconContext.Provider>
-        <a href="">Home</a>
-      </div>
-      <div id="inventory" className="flex items-center gap-5">
-        <IconContext.Provider value={{ size: "1.3em " }}>
-          <FaStore />
-        </IconContext.Provider>
-        <a href="">Inventory</a>
-      </div>
-      <div id="admin-settings" className="flex items-center gap-5">
-        <IconContext.Provider value={{ size: "1.3em" }}>
-          <AiOutlineTool />
-        </IconContext.Provider>
-        <a href="">Admin Settings</a>
-      </div>
+      <Link to="/">
+        <div id="home" className="flex items-center gap-5">
+          <IconContext.Provider value={{ size: "1.3em" }}>
+            <AiOutlineHome />
+          </IconContext.Provider>
+          <div>Home</div>
+        </div>
+      </Link>
+      <Link to="/inventory">
+        <div id="inventory" className="flex items-center gap-5">
+          <IconContext.Provider value={{ size: "1.3em " }}>
+            <FaStore />
+          </IconContext.Provider>
+          <div>Inventory</div>
+        </div>
+      </Link>
+      <Link to="/admin-settings">
+        <div id="admin-settings" className="flex items-center gap-5">
+          <IconContext.Provider value={{ size: "1.3em" }}>
+            <AiOutlineTool />
+          </IconContext.Provider>
+          <div>Admin Settings</div>
+        </div>
+      </Link>
     </nav>
   );
 };
