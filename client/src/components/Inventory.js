@@ -7,9 +7,11 @@ import { useState, useEffect } from "react";
 const Inventory = () => {
   const [products, setProducts] = useState();
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchProducts, setSearchProducts] = useState([]);
   const [makes, setMakes] = useState();
   const [makeFilter, setMakeFilter] = useState();
   const [categoryFilter, setCategoryFilter] = useState();
+  const [search, setSearch] = useState();
   const [categories, setCategories] = useState();
   const [err, setError] = useState();
 
@@ -79,12 +81,43 @@ const Inventory = () => {
     }
   }, [makeFilter, categoryFilter]);
 
+  // Search bar functionality
+  useEffect(() => {
+    if (filteredProducts.length > 0) {
+      const searchArray = filteredProducts.filter((obj) => {
+        if (obj.name.toLowerCase().includes(search)) {
+          return obj
+        }
+      })
+      if (search === "") {
+        setSearchProducts([]);
+      } else {
+        setSearchProducts(searchArray);
+      }
+    } else if (products) {
+      const searchArray = products.filter((obj) => {
+        if (obj.name.toLowerCase().includes(search)) {
+          return obj
+        }
+      })
+      if (search === "") {
+        setSearchProducts([]);
+      } else {
+        setSearchProducts(searchArray);
+      }
+    }
+  }, [search])
+
   const selectMakeFilter = (e) => {
     setMakeFilter(e.target.value);
   };
 
   const selectCategoryFilter = (e) => {
     setCategoryFilter(e.target.value);
+  };
+
+  const searchValue = (e) => {
+    setSearch(e.target.value);
   };
 
   if (err) {
@@ -103,6 +136,40 @@ const Inventory = () => {
     </div>;
   }
 
+  if (searchProducts.length > 0) {
+    return (
+      <div
+        id="inventory-container"
+        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
+      >
+        <Navbar />
+        <div
+          id="products"
+          className="py-16 pl-24 animate__animated animate__slideInDown"
+        >
+          <div className="text-4xl font-extrabold">Inventory</div>
+          <InventoryFilters
+            makes={makes}
+            categories={categories}
+            search={search}
+            handleMakeFilter={selectMakeFilter}
+            handleCategoryFilter={selectCategoryFilter}
+            handleSearch={searchValue}
+          />
+          <div id="product-filters" className="flex"></div>
+          <div
+            id="product-rows"
+            className="mt-16 w-11/12 grid grid-cols-1 gap-4"
+          >
+            {searchProducts.map((obj, i) => {
+              return <InventoryTile data={obj} key={obj._id} />;
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (filteredProducts.length > 0) {
     return (
       <div
@@ -118,8 +185,10 @@ const Inventory = () => {
           <InventoryFilters
             makes={makes}
             categories={categories}
+            search={search}
             handleMakeFilter={selectMakeFilter}
             handleCategoryFilter={selectCategoryFilter}
+            handleSearch={searchValue}
           />
           <div id="product-filters" className="flex"></div>
           <div
@@ -150,6 +219,7 @@ const Inventory = () => {
           <InventoryFilters
             makes={makes}
             categories={categories}
+            handleSearch={searchValue}
             handleMakeFilter={selectMakeFilter}
             handleCategoryFilter={selectCategoryFilter}
           />
