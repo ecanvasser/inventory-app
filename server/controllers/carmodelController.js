@@ -7,7 +7,13 @@ exports.get_carmodels = function (req, res) {
       if (err) {
         res.status(404).json("Error: " + err);
       }
-      res.send(result);
+      res.send(result.map((obj) => {
+        return {
+          _id: obj._id,
+          make: obj.make.name,
+          model: obj.model
+        }
+      }));
     });
 };
 
