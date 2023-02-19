@@ -7,6 +7,7 @@ import AdminSettings from "./components/AdminSettings";
 import VehicleModels from "./components/VehicleModels";
 import NewModel from "./components/NewModel";
 import Categories from "./components/Categories";
+import NewCategory from "./components/NewCategory";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -18,6 +19,7 @@ root.render(
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/admin-settings" element={<AdminSettings />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/categories/new" element={<NewCategory />} />
         <Route path="/vehicle-models" element={<VehicleModels />} />
         <Route path="/vehicle/new" element={<NewModel />} />
       </Routes>

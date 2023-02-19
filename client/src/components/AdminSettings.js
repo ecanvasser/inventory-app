@@ -49,12 +49,14 @@ const AdminSettings = () => {
               Add New Model
             </div>
           </Link>
-          <div
-            id="categories"
-            className="bg-[#ccffcc] flex justify-center py-10 rounded-2xl"
-          >
-            Add New Category
-          </div>
+          <Link to="/categories/new">
+            <div
+              id="categories"
+              className="bg-[#ccffcc] flex justify-center py-10 rounded-2xl"
+            >
+              Add New Category
+            </div>
+          </Link>
         </div>
       </div>
     </div>
