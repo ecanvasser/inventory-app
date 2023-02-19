@@ -50,11 +50,12 @@ const Categories = () => {
           <div id="section-title" className="text-4xl font-extrabold">
             Product Categories
           </div>
-          <div id="category-tiles" className="flex flex-wrap gap-4 mt-8">
+          <div id="category-tiles" className="flex flex-wrap gap-4 mt-10">
             {categories.map((obj) => {
               return (
                 <div
                   id="category-tile"
+                  key={obj._id}
                   className="p-2 border rounded bg-[#E0FFFF]"
                 >
                   {obj.name}
