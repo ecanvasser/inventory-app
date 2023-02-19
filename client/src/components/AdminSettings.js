@@ -27,12 +27,14 @@ const AdminSettings = () => {
               Vehicle Models
             </div>
           </Link>
-          <div
-            id="categories"
-            className="bg-[#ccffcc] flex justify-center py-10 rounded-2xl"
-          >
-            Product Categories
-          </div>
+          <Link to="/categories">
+            <div
+              id="categories"
+              className="bg-[#ccffcc] flex justify-center py-10 rounded-2xl"
+            >
+              Product Categories
+            </div>
+          </Link>
           <div
             id="add-product"
             className="bg-[#ccffcc] flex justify-center py-10 rounded-2xl"
