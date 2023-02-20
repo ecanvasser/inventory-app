@@ -35,12 +35,14 @@ const AdminSettings = () => {
               Product Categories
             </div>
           </Link>
+          <Link to="/inventory/new">
           <div
             id="add-product"
             className="bg-[#ccffcc] flex justify-center py-10 rounded-2xl"
           >
             Add New Product
           </div>
+          </Link>
           <Link to="/vehicle/new">
             <div
               id="categories"
