@@ -21,3 +21,16 @@ exports.add_category = function (req, res) {
     res.send("Category added");
   });
 };
+
+exports.edit_category = function (req, res) {
+  const edit = new Category({
+    name: req.body.name
+  });
+
+  Category.findByIdAndUpdate(req.params.id, edit, (err) => {
+    if (err) {
+      res.status(404).json(err);
+    }
+    res.send("Category updated");
+  })
+};
