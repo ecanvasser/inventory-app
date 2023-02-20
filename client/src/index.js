@@ -8,6 +8,7 @@ import VehicleModels from "./components/VehicleModels";
 import NewModel from "./components/NewModel";
 import Categories from "./components/Categories";
 import NewCategory from "./components/NewCategory";
+import EditCategory from "./components/EditCategory";
 import NewProduct from "./components/NewProduct";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -21,6 +22,7 @@ root.render(
         <Route path="/inventory/new" element={<NewProduct />} />
         <Route path="/admin-settings" element={<AdminSettings />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/categories/:id" element={<EditCategory />} />
         <Route path="/categories/new" element={<NewCategory />} />
         <Route path="/vehicle-models" element={<VehicleModels />} />
         <Route path="/vehicle/new" element={<NewModel />} />

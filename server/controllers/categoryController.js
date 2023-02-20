@@ -23,9 +23,9 @@ exports.add_category = function (req, res) {
 };
 
 exports.edit_category = function (req, res) {
-  const edit = new Category({
+  const edit = {
     name: req.body.name
-  });
+  };
 
   Category.findByIdAndUpdate(req.params.id, edit, (err) => {
     if (err) {

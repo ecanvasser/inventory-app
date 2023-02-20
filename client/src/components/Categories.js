@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Categories = () => {
   const [categories, setCategories] = useState();
@@ -53,13 +54,15 @@ const Categories = () => {
           <div id="category-tiles" className="flex flex-wrap gap-4 mt-10">
             {categories.map((obj) => {
               return (
-                <div
-                  id="category-tile"
-                  key={obj._id}
-                  className="p-2 border rounded bg-[#E0FFFF]"
-                >
-                  {obj.name}
-                </div>
+                <Link to={obj._id}>
+                  <div
+                    id="category-tile"
+                    key={obj._id}
+                    className="p-2 border rounded bg-[#E0FFFF]"
+                  >
+                    {obj.name}
+                  </div>
+                </Link>
               );
             })}
           </div>
