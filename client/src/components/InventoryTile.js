@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const InventoryTile = ({ data }) => {
-  const [total, setTotal] = useState(data.quantity * data.price);
+  const [total, setTotal] = useState(Number((data.quantity * data.price).toFixed(2)));
 
   return (
     <div id="product-container" className="grid grid-cols-4 bg-[#D8BFD8] rounded-xl py-8">

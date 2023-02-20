@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 const Mainchart = () => {
   const [products, setProducts] = useState();
   const [categories, setCategories] = useState();
-  const [totalInv, setTotalInv] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
@@ -39,13 +38,6 @@ const Mainchart = () => {
     fetchCategories();
   }, []);
 
-  // useEffect(() => {
-  //   if (products) {
-  //     const total =
-  //     setTotalInv(total)
-  //   }
-  // }, [])
-
   if (products) {
     return (
       <>
@@ -71,7 +63,7 @@ const Mainchart = () => {
             <div className="text-4xl font-bold">
               $
               {products.reduce((acc, curr) => {
-                return curr.price * curr.quantity + acc;
+                return curr.price * curr.quantity + Number((acc).toFixed(2));
               }, 0)}
             </div>
             <div className="text-sm font-normal italic">Entire store</div>
