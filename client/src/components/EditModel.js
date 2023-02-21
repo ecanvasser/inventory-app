@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const EditModel = () => {
   const [vehicle, setVehicle] = useState();
-  const newVehicle = useRef();
   const [makes, setMakes] = useState();
   const [error, setError] = useState();
   const params = useParams();
@@ -28,7 +27,7 @@ const EditModel = () => {
       }
     };
     fetchModel();
-  });
+  }, []);
 
   // Fetch vehicle makes from express API
   useEffect(() => {
@@ -44,25 +43,15 @@ const EditModel = () => {
     fetchMakes();
   }, []);
 
-  const handleMake = (e) => {
-    newVehicle.current =
-      newVehicle.current === undefined
-        ? { model: vehicle.model, make: e.target.value }
-        : { ...newVehicle.current, make: e.target.value };
-  };
-
-  const handleModel = (e) => {
-    newVehicle.current =
-      newVehicle.current === undefined
-        ? { model: e.target.value, make: vehicle._makeid }
-        : { ...newVehicle.current, model: e.target.value };
-  };
-
-  const formSubmit = () => {
+  const formSubmit = (e) => {
+    e.preventDefault();
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newVehicle.current),
+      body: JSON.stringify({
+        make: vehicle._makeid,
+        model: vehicle.model,
+      }),
     };
     const postModel = async () => {
       try {
@@ -75,7 +64,7 @@ const EditModel = () => {
       }
     };
     postModel();
-    navigate("/vehicle-models")
+    navigate("/vehicle-models");
   };
 
   if (vehicle && makes) {
@@ -97,7 +86,9 @@ const EditModel = () => {
               <div className="text-lg font-bold">Make:</div>
               <select
                 defaultValue={vehicle._makeid}
-                onChange={handleMake}
+                onChange={(e) =>
+                  setVehicle({ ...vehicle, _makeid: e.target.value })
+                }
                 className="border rounded p-1"
               >
                 {makes.map((obj) => {
@@ -113,7 +104,9 @@ const EditModel = () => {
               <div className="text-lg font-bold">Model:</div>
               <input
                 type="text"
-                onChange={handleModel}
+                onChange={(e) =>
+                  setVehicle({ ...vehicle, model: e.target.value })
+                }
                 className="border rounded pl-2"
                 defaultValue={vehicle.model}
                 required
