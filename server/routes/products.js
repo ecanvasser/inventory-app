@@ -9,4 +9,7 @@ router.get("/", productController.get_products);
 // Add new product to db
 router.post("/new", productController.add_product);
 
+// Edit existing product
+router.post("/edit/:id", productController.edit_product);
+
 module.exports = router;

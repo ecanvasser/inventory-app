@@ -11,6 +11,7 @@ import Categories from "./components/Categories";
 import NewCategory from "./components/NewCategory";
 import EditCategory from "./components/EditCategory";
 import NewProduct from "./components/NewProduct";
+import EditProduct from "./components/EditProduct";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -20,6 +21,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/inventory" element={<Inventory />} />
+        <Route path="/inventory/:id" element={<EditProduct />} />
         <Route path="/inventory/new" element={<NewProduct />} />
         <Route path="/admin-settings" element={<AdminSettings />} />
         <Route path="/categories" element={<Categories />} />

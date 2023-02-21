@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import "animate.css";
 import InventoryTile from "./InventoryTile";
 import InventoryFilters from "./InventoryFilters";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Inventory = () => {
@@ -86,9 +87,9 @@ const Inventory = () => {
     if (filteredProducts.length > 0) {
       const searchArray = filteredProducts.filter((obj) => {
         if (obj.name.toLowerCase().includes(search)) {
-          return obj
+          return obj;
         }
-      })
+      });
       if (search === "") {
         setSearchProducts([]);
       } else {
@@ -97,16 +98,16 @@ const Inventory = () => {
     } else if (products) {
       const searchArray = products.filter((obj) => {
         if (obj.name.toLowerCase().includes(search)) {
-          return obj
+          return obj;
         }
-      })
+      });
       if (search === "") {
         setSearchProducts([]);
       } else {
         setSearchProducts(searchArray);
       }
     }
-  }, [search])
+  }, [search]);
 
   const selectMakeFilter = (e) => {
     setMakeFilter(e.target.value);
@@ -162,7 +163,11 @@ const Inventory = () => {
             className="mt-16 w-11/12 grid grid-cols-1 gap-4"
           >
             {searchProducts.map((obj, i) => {
-              return <InventoryTile data={obj} key={obj._id} />;
+              return (
+                <Link to={`/inventory/${obj._id}`}>
+                  <InventoryTile data={obj} key={obj._id} />
+                </Link>
+              );
             })}
           </div>
         </div>
@@ -196,7 +201,11 @@ const Inventory = () => {
             className="mt-16 w-11/12 grid grid-cols-1 gap-4"
           >
             {filteredProducts.map((obj, i) => {
-              return <InventoryTile data={obj} key={obj._id} />;
+              return (
+                <Link to={`/inventory/${obj._id}`}>
+                  <InventoryTile data={obj} key={obj._id} />
+                </Link>
+              );
             })}
           </div>
         </div>
@@ -229,7 +238,11 @@ const Inventory = () => {
             className="mt-16 w-11/12 grid grid-cols-1 gap-4"
           >
             {products.map((obj, i) => {
-              return <InventoryTile data={obj} key={obj._id} />;
+              return (
+                <Link to={`/inventory/${obj._id}`}>
+                  <InventoryTile data={obj} key={obj._id} />
+                </Link>
+              );
             })}
           </div>
         </div>
