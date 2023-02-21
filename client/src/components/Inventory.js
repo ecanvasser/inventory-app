@@ -118,7 +118,7 @@ const Inventory = () => {
   };
 
   const searchValue = (e) => {
-    setSearch(e.target.value);
+    setSearch(e.target.value.toLowerCase());
   };
 
   if (err) {
