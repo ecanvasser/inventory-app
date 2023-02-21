@@ -9,4 +9,6 @@ router.post('/new', categoryController.add_category);
 
 router.post('/edit/:id', categoryController.edit_category);
 
+router.post('/delete/:id', categoryController.delete_category);
+
 module.exports = router;

@@ -43,21 +43,21 @@ const Mainchart = () => {
       <>
         <div
           id="main-chart"
-          className="grid grid-cols-3 w-10/12 bg-[#FFEBCD] mt-10 px-10 py-16 rounded-2xl animate__animated animate__slideInRight"
+          className="grid grid-cols-3 w-10/12 bg-[#FFEBCD] mt-10 py-16 rounded-2xl animate__animated animate__slideInRight"
         >
-          <div id="total-products" className="flex flex-col gap-3">
+          <div id="total-products" className="flex flex-col items-center gap-3">
             <AiOutlineShoppingCart />
             <div className="text-base font-normal mt-5">Total Products</div>
             <div className="text-4xl font-bold">{products.length}</div>
-            <div className="text-sm font-normal italic">All categories</div>
+            <div className="text-sm font-normal italic">All Inventory</div>
           </div>
-          <div id="total-categories" className="flex flex-col gap-3">
+          <div id="total-categories" className="flex flex-col items-center gap-3">
             <BiCategory />
             <div className="text-base font-normal mt-5">Total Categories</div>
-            <div className="text-4xl font-bold">{categories.length}</div>
-            <div className="text-sm font-normal italic">All car models</div>
+            <div className="text-4xl font-bold">{categories ? categories.length : 0}</div>
+            <div className="text-sm font-normal italic">All Inventory Categories</div>
           </div>
-          <div id="total-inventory" className="flex flex-col gap-3">
+          <div id="total-inventory" className="flex flex-col items-center gap-3">
             <MdOutlineMonetizationOn />
             <div className="text-base font-normal mt-5">Total Inventory</div>
             <div className="text-4xl font-bold">

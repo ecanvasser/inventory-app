@@ -29,7 +29,7 @@ const EditCategory = () => {
     fetchCategory();
   }, []);
 
-  const handleSubmit = (e) => {
+  const formUpdate = (e) => {
     e.preventDefault();
     const requestOptions = {
       method: "POST",
@@ -50,6 +50,26 @@ const EditCategory = () => {
     navigate("/categories");
   };
 
+  const formDelete = (e) => {
+    e.preventDefault();
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    const deleteCategory = async () => {
+      try {
+        await fetch(
+          `http://localhost:8000/product-categories/delete/${params.id}`,
+          requestOptions
+        );
+      } catch (err) {
+        setError(err)
+      }
+    };
+    deleteCategory();
+    navigate("/categories");
+  };
+
   if (category) {
     return (
       <div
@@ -66,7 +86,7 @@ const EditCategory = () => {
           </div>
           <form
             id="editcategory"
-            onSubmit={handleSubmit}
+            onSubmit={formUpdate}
             className="mt-10 flex flex-col gap-6"
           >
             <label className="flex gap-2">
@@ -81,11 +101,14 @@ const EditCategory = () => {
                 className="py-1 pl-2 border rounded"
               />
             </label>
-            <input
-              type="submit"
-              value="Update Category"
-              className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
-            />
+            <div id="buttons" className="flex gap-4">
+              <input
+                type="submit"
+                value="Update Category"
+                className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
+              />
+              <button onClick={formDelete} className="border rounded px-2 py-1">Delete</button>
+            </div>
           </form>
         </div>
       </div>
