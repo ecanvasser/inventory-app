@@ -6,6 +6,7 @@ import Inventory from "./components/Inventory";
 import AdminSettings from "./components/AdminSettings";
 import VehicleModels from "./components/VehicleModels";
 import NewModel from "./components/NewModel";
+import EditModel from "./components/EditModel";
 import Categories from "./components/Categories";
 import NewCategory from "./components/NewCategory";
 import EditCategory from "./components/EditCategory";
@@ -25,6 +26,7 @@ root.render(
         <Route path="/categories/:id" element={<EditCategory />} />
         <Route path="/categories/new" element={<NewCategory />} />
         <Route path="/vehicle-models" element={<VehicleModels />} />
+        <Route path="/vehicle/:id" element={<EditModel />} />
         <Route path="/vehicle/new" element={<NewModel />} />
       </Routes>
     </BrowserRouter>
