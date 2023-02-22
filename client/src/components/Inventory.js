@@ -4,6 +4,7 @@ import InventoryTile from "./InventoryTile";
 import InventoryFilters from "./InventoryFilters";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import NavbarLinks from "./NavbarLinks";
 
 const Inventory = () => {
   const [products, setProducts] = useState();
@@ -15,6 +16,7 @@ const Inventory = () => {
   const [search, setSearch] = useState();
   const [categories, setCategories] = useState();
   const [err, setError] = useState();
+  const [showLinks, setShowLinks] = useState(false);
 
   // Fetch all product data for inventory grid
   useEffect(() => {
@@ -121,56 +123,50 @@ const Inventory = () => {
     setSearch(e.target.value.toLowerCase());
   };
 
-  if (err) {
-    <div
-      id="errPage-container"
-      className="grid grid-cols-[0.4fr_1.6fr] h-screen"
-    >
-      <Navbar />
-      <div
-        id="err-message"
-        className="flex flex-col items-center justify-center"
-      >
-        <div className="text-3xl font-extrabold">Something went wrong!</div>
-        <div className="italic">{err}</div>
-      </div>
-    </div>;
-  }
-
   if (searchProducts.length > 0) {
     return (
       <div
         id="inventory-container"
-        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
+        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
-        <Navbar />
-        <div
-          id="products"
-          className="py-16 pl-24 animate__animated animate__slideInDown"
-        >
-          <div className="text-4xl font-extrabold">Inventory</div>
-          <InventoryFilters
-            makes={makes}
-            categories={categories}
-            search={search}
-            handleMakeFilter={selectMakeFilter}
-            handleCategoryFilter={selectCategoryFilter}
-            handleSearch={searchValue}
-          />
-          <div id="product-filters" className="flex"></div>
-          <div
-            id="product-rows"
-            className="mt-16 w-11/12 grid grid-cols-1 gap-4"
-          >
-            {searchProducts.map((obj, i) => {
-              return (
-                <Link to={`/inventory/${obj._id}`}>
-                  <InventoryTile data={obj} key={obj._id} />
-                </Link>
-              );
-            })}
+        <Navbar
+          handleNav={() => {
+            setShowLinks(!showLinks);
+          }}
+        />
+        {showLinks ? (
+          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <NavbarLinks />
           </div>
-        </div>
+        ) : (
+          <div
+            id="products"
+            className="flex flex-col items-center"
+          >
+            <div className="text-4xl font-extrabold">Inventory</div>
+            <InventoryFilters
+              makes={makes}
+              categories={categories}
+              search={search}
+              handleMakeFilter={selectMakeFilter}
+              handleCategoryFilter={selectCategoryFilter}
+              handleSearch={searchValue}
+            />
+            <div id="product-filters" className="flex"></div>
+            <div
+              id="product-rows"
+              className="mt-16 w-11/12 grid grid-cols-1 gap-4"
+            >
+              {searchProducts.map((obj, i) => {
+                return (
+                  <Link to={`/inventory/${obj._id}`}>
+                    <InventoryTile data={obj} key={obj._id} />
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -179,36 +175,43 @@ const Inventory = () => {
     return (
       <div
         id="inventory-container"
-        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
+        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
-        <Navbar />
-        <div
-          id="products"
-          className="py-16 pl-24 animate__animated animate__slideInDown"
-        >
-          <div className="text-4xl font-extrabold">Inventory</div>
-          <InventoryFilters
-            makes={makes}
-            categories={categories}
-            search={search}
-            handleMakeFilter={selectMakeFilter}
-            handleCategoryFilter={selectCategoryFilter}
-            handleSearch={searchValue}
-          />
-          <div id="product-filters" className="flex"></div>
-          <div
-            id="product-rows"
-            className="mt-16 w-11/12 grid grid-cols-1 gap-4"
-          >
-            {filteredProducts.map((obj, i) => {
-              return (
-                <Link to={`/inventory/${obj._id}`}>
-                  <InventoryTile data={obj} key={obj._id} />
-                </Link>
-              );
-            })}
+        <Navbar
+          handleNav={() => {
+            setShowLinks(!showLinks);
+          }}
+        />
+        {showLinks ? (
+          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <NavbarLinks />
           </div>
-        </div>
+        ) : (
+          <div id="products" className="flex flex-col items-center">
+            <div className="text-4xl font-extrabold">Inventory</div>
+            <InventoryFilters
+              makes={makes}
+              categories={categories}
+              search={search}
+              handleMakeFilter={selectMakeFilter}
+              handleCategoryFilter={selectCategoryFilter}
+              handleSearch={searchValue}
+            />
+            <div id="product-filters" className="flex"></div>
+            <div
+              id="product-rows"
+              className="mt-16 w-11/12 grid grid-cols-1 gap-4"
+            >
+              {filteredProducts.map((obj, i) => {
+                return (
+                  <Link to={`/inventory/${obj._id}`}>
+                    <InventoryTile data={obj} key={obj._id} />
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -217,35 +220,45 @@ const Inventory = () => {
     return (
       <div
         id="inventory-container"
-        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
+        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
-        <Navbar />
-        <div
-          id="products"
-          className="py-16 pl-24 animate__animated animate__slideInDown"
-        >
-          <div className="text-4xl font-extrabold">Inventory</div>
-          <InventoryFilters
-            makes={makes}
-            categories={categories}
-            handleSearch={searchValue}
-            handleMakeFilter={selectMakeFilter}
-            handleCategoryFilter={selectCategoryFilter}
-          />
-          <div id="product-filters" className="flex"></div>
-          <div
-            id="product-rows"
-            className="mt-16 w-11/12 grid grid-cols-1 gap-4"
-          >
-            {products.map((obj, i) => {
-              return (
-                <Link to={`/inventory/${obj._id}`}>
-                  <InventoryTile data={obj} key={obj._id} />
-                </Link>
-              );
-            })}
+        <Navbar
+          handleNav={() => {
+            setShowLinks(!showLinks);
+          }}
+        />
+        {showLinks ? (
+          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <NavbarLinks />
           </div>
-        </div>
+        ) : (
+          <div
+            id="products"
+            className="flex flex-col items-center"
+          >
+            <div className="text-4xl font-extrabold">Inventory</div>
+            <InventoryFilters
+              makes={makes}
+              categories={categories}
+              handleSearch={searchValue}
+              handleMakeFilter={selectMakeFilter}
+              handleCategoryFilter={selectCategoryFilter}
+            />
+            <div id="product-filters" className="flex"></div>
+            <div
+              id="product-rows"
+              className="mt-16 w-11/12 grid grid-cols-1 gap-4"
+            >
+              {products.map((obj, i) => {
+                return (
+                  <Link to={`/inventory/${obj._id}`}>
+                    <InventoryTile data={obj} key={obj._id} />
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
