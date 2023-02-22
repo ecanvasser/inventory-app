@@ -1,12 +1,14 @@
 import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import NavbarLinks from "./NavbarLinks";
 
 const EditProduct = () => {
   const [product, setProduct] = useState();
   const [models, setModels] = useState();
   const [category, setCategory] = useState();
   const [error, setError] = useState();
+  const [showLinks, setShowLinks] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -113,110 +115,126 @@ const EditProduct = () => {
     return (
       <div
         id="editproduct-container"
-        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
+        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
-        <Navbar />
-        <div
-          id="editproduct-body"
-          className="w-10/12 py-16 pl-32 animate__animated animate__slideInRight"
-        >
-          <div id="editproduct-title" className="text-4xl font-extrabold">
-            Edit Product
+        <Navbar
+          handleNav={() => {
+            setShowLinks(!showLinks);
+          }}
+        />
+        {showLinks ? (
+          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <NavbarLinks />
           </div>
-          <form className="flex flex-col gap-8 mt-10" onSubmit={formSubmit}>
-            <label className="flex gap-2">
-              <div className="text-lg font-bold">Select Model:</div>
-              <select
-                id="model"
-                defaultValue={product._modelid}
-                onChange={(e) => {
-                  setProduct({ ...product, _modelid: e.target.value });
-                }}
-                className="border rounded px-2"
-              >
-                {models.map((obj) => {
-                  return (
-                    <option key={obj._id} value={obj._id}>
-                      {obj.make} {obj.model}
-                    </option>
-                  );
-                })}
-              </select>
-            </label>
-            <label className="flex gap-2">
-              <div className="text-lg font-bold">Select Category:</div>
-              <select
-                id="category"
-                defaultValue={product._categoryid}
-                onChange={(e) => {
-                  setProduct({ ...product, _categoryid: e.target.value });
-                }}
-                className="border rounded px-2"
-              >
-                {category.map((obj) => {
-                  return (
-                    <option key={obj._id} value={obj._id}>
-                      {obj.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </label>
-            <label className="flex gap-2">
-              <div className="text-lg font-bold">Product Name:</div>
-              <input
-                type="text"
-                id="name"
-                defaultValue={product.name}
-                onChange={(e) => {
-                  setProduct({ ...product, name: e.target.value });
-                }}
-                className="border rounded px-2"
-                required
-              />
-            </label>
-            <label className="flex gap-2">
-              <div className="text-lg font-bold">Product Price:</div>
-              <input
-                type="number"
-                step=".01"
-                defaultValue={product.price}
-                onChange={(e) => {
-                  setProduct({ ...product, price: Number(e.target.value) });
-                }}
-                id="price"
-                className="border rounded px-2"
-                required
-              />
-            </label>
-            <label className="flex gap-2">
-              <div className="text-lg font-bold">Product Quantity:</div>
-              <input
-                type="number"
-                id="quantity"
-                defaultValue={product.quantity}
-                onChange={(e) => {
-                  setProduct({ ...product, quantity: Number(e.target.value) });
-                }}
-                className="border rounded px-2"
-                required
-              />
-            </label>
-            <div id="buttons" className="flex gap-4">
-              <input
-                type="submit"
-                value="Update Product"
-                className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
-              />
-              <button
-                onClick={formDelete}
-                className="border bg-[#f4a4a4] rounded px-2 py-1"
-              >
-                Delete Product
-              </button>
+        ) : (
+          <div
+            id="editproduct-body"
+            className="flex flex-col items-center animate__animated animate__slideInLeft"
+          >
+            <div id="editproduct-title" className="text-4xl font-extrabold">
+              Edit Product
             </div>
-          </form>
-        </div>
+            <form
+              className="flex flex-col items-center gap-8 mt-10"
+              onSubmit={formSubmit}
+            >
+              <label className="flex gap-2">
+                <div className="text-lg font-bold">Select Model:</div>
+                <select
+                  id="model"
+                  defaultValue={product._modelid}
+                  onChange={(e) => {
+                    setProduct({ ...product, _modelid: e.target.value });
+                  }}
+                  className="border rounded px-2"
+                >
+                  {models.map((obj) => {
+                    return (
+                      <option key={obj._id} value={obj._id}>
+                        {obj.make} {obj.model}
+                      </option>
+                    );
+                  })}
+                </select>
+              </label>
+              <label className="flex gap-2">
+                <div className="text-lg font-bold">Select Category:</div>
+                <select
+                  id="category"
+                  defaultValue={product._categoryid}
+                  onChange={(e) => {
+                    setProduct({ ...product, _categoryid: e.target.value });
+                  }}
+                  className="border rounded px-2"
+                >
+                  {category.map((obj) => {
+                    return (
+                      <option key={obj._id} value={obj._id}>
+                        {obj.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </label>
+              <label className="flex gap-2">
+                <div className="text-lg font-bold">Product Name:</div>
+                <input
+                  type="text"
+                  id="name"
+                  defaultValue={product.name}
+                  onChange={(e) => {
+                    setProduct({ ...product, name: e.target.value });
+                  }}
+                  className="border rounded px-2"
+                  required
+                />
+              </label>
+              <label className="flex gap-2">
+                <div className="text-lg font-bold">Product Price:</div>
+                <input
+                  type="number"
+                  step=".01"
+                  defaultValue={product.price}
+                  onChange={(e) => {
+                    setProduct({ ...product, price: Number(e.target.value) });
+                  }}
+                  id="price"
+                  className="border rounded px-2"
+                  required
+                />
+              </label>
+              <label className="flex gap-2">
+                <div className="text-lg font-bold">Product Quantity:</div>
+                <input
+                  type="number"
+                  id="quantity"
+                  defaultValue={product.quantity}
+                  onChange={(e) => {
+                    setProduct({
+                      ...product,
+                      quantity: Number(e.target.value),
+                    });
+                  }}
+                  className="border rounded px-2"
+                  required
+                />
+              </label>
+              <div id="buttons" className="flex gap-4">
+                <input
+                  type="submit"
+                  value="Update Product"
+                  className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
+                />
+                <button
+                  onClick={formDelete}
+                  className="border bg-[#f4a4a4] rounded px-2 py-1"
+                >
+                  Delete Product
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     );
   }
