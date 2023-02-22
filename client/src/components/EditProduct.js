@@ -10,6 +10,7 @@ const EditProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
 
+  // Fetch matching product data
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -29,6 +30,7 @@ const EditProduct = () => {
     fetchProduct();
   }, []);
 
+  // Fetch all vehicle model data for dropdown menu
   useEffect(() => {
     const fetchModels = async () => {
       try {
@@ -42,6 +44,7 @@ const EditProduct = () => {
     fetchModels();
   }, []);
 
+  // Fetch all product categories for dropdown menu
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -57,6 +60,7 @@ const EditProduct = () => {
     fetchCategories();
   }, []);
 
+  // Handles form submission for updated product info
   const formSubmit = (e) => {
     e.preventDefault();
     const requestOptions = {
@@ -81,6 +85,27 @@ const EditProduct = () => {
       }
     };
     postProduct();
+    navigate("/inventory");
+  };
+
+  // Handles product deletion
+  const formDelete = (e) => {
+    e.preventDefault();
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    const deleteProduct = async () => {
+      try {
+        await fetch(
+          `http://localhost:8000/products/delete/${params.id}`,
+          requestOptions
+        );
+      } catch (err) {
+        setError(err);
+      }
+    };
+    deleteProduct();
     navigate("/inventory");
   };
 
@@ -177,11 +202,19 @@ const EditProduct = () => {
                 required
               />
             </label>
-            <input
-              type="submit"
-              value="Update Product"
-              className="w-max border px-2 py-1 rounded bg-[#ccffcc]"
-            />
+            <div id="buttons" className="flex gap-4">
+              <input
+                type="submit"
+                value="Update Product"
+                className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
+              />
+              <button
+                onClick={formDelete}
+                className="border bg-[#f4a4a4] rounded px-2 py-1"
+              >
+                Delete Product
+              </button>
+            </div>
           </form>
         </div>
       </div>

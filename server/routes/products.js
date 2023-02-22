@@ -12,4 +12,7 @@ router.post("/new", productController.add_product);
 // Edit existing product
 router.post("/edit/:id", productController.edit_product);
 
+// Delete existing product
+router.post("/delete/:id", productController.delete_product);
+
 module.exports = router;

@@ -63,3 +63,12 @@ exports.edit_product = function (req, res) {
     res.send("Product updated");
   });
 };
+
+exports.delete_product = function (req, res) {
+  Product.findByIdAndDelete(req.params.id, (err) => {
+    if (err) {
+      res.status(404).send(err)
+    }
+    res.send("Product deleted")
+  })
+}
