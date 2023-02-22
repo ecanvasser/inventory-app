@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
+import NavbarLinks from "./NavbarLinks";
 
 const NewProduct = () => {
   const [makes, setMakes] = useState();
@@ -7,6 +8,7 @@ const NewProduct = () => {
   const [models, setModels] = useState();
   const [categories, setCategories] = useState();
   const [error, setError] = useState();
+  const [showLinks, setShowLinks] = useState(false);
 
   // Fetch vehicle make data from express API
   useEffect(() => {
@@ -86,94 +88,107 @@ const NewProduct = () => {
     return (
       <div
         id="newproduct-container"
-        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
+        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
-        <Navbar />
-        <div
-          id="newproduct-body"
-          className="w-10/12 py-16 pl-32 animate__animated animate__slideInRight"
-        >
-          <div id="section-title" className="text-4xl font-extrabold">
-            Add New Product
+        <Navbar
+          handleNav={() => {
+            setShowLinks(!showLinks);
+          }}
+        />
+        {showLinks ? (
+          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <NavbarLinks />
           </div>
-          <div id="newproduct-form" className="mt-10">
-            <form className="flex flex-col gap-8" onSubmit={formSubmit}>
-              <label className="flex gap-2">
-                <div className="text-lg font-bold">Select Model:</div>
-                <select
-                  id="model"
-                  className="border rounded px-2"
-                  onChange={handleFormCapture}
-                >
-                  <option>-</option>
-                  {models.map((obj) => {
-                    return (
-                      <option value={obj._id} key={obj._id}>
-                        {obj.make} {obj.model}
-                      </option>
-                    );
-                  })}
-                </select>
-              </label>
-              <label className="flex gap-2">
-                <div className="text-lg font-bold">Select Category:</div>
-                <select
-                  id="category"
-                  className="border rounded px-2"
-                  onChange={handleFormCapture}
-                >
-                  <option>-</option>
-                  {categories.map((obj) => {
-                    return (
-                      <option value={obj._id} key={obj._id}>
-                        {obj.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </label>
-              <label className="flex gap-2">
-                <div className="text-lg font-bold">Product Name:</div>
+        ) : (
+          <div
+            id="newproduct-body"
+            className="flex flex-col items-center animate__animated animate__slideInLeft"
+          >
+            <div id="section-title" className="text-4xl font-extrabold">
+              Add New Product
+            </div>
+            <div id="newproduct-form" className="mt-10">
+              <form
+                className="flex flex-col items-center gap-8"
+                onSubmit={formSubmit}
+              >
+                <label className="flex gap-2">
+                  <div className="text-lg font-bold">Select Model:</div>
+                  <select
+                    id="model"
+                    className="border rounded px-2"
+                    onChange={handleFormCapture}
+                  >
+                    <option>-</option>
+                    {models.map((obj) => {
+                      return (
+                        <option value={obj._id} key={obj._id}>
+                          {obj.make} {obj.model}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </label>
+                <label className="flex gap-2">
+                  <div className="text-lg font-bold">Select Category:</div>
+                  <select
+                    id="category"
+                    className="border rounded px-2"
+                    onChange={handleFormCapture}
+                  >
+                    <option>-</option>
+                    {categories.map((obj) => {
+                      return (
+                        <option value={obj._id} key={obj._id}>
+                          {obj.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </label>
+                <label className="flex gap-2">
+                  <div className="text-lg font-bold">Product Name:</div>
+                  <input
+                    type="text"
+                    id="name"
+                    onChange={handleFormCapture}
+                    className="border rounded px-2"
+                    placeholder="Product Name"
+                    required
+                  />
+                </label>
+                <label className="flex gap-2">
+                  <div className="text-lg font-bold">Product Price:</div>
+                  <input
+                    type="number"
+                    step=".01"
+                    id="price"
+                    onChange={handleFormCapture}
+                    className="border rounded px-2"
+                    placeholder="32.99, 8.50, 79.95, etc"
+                    required
+                  />
+                </label>
+                <label className="flex gap-2">
+                  <div className="text-lg font-bold">Product Quantity:</div>
+                  <input
+                    type="number"
+                    id="quantity"
+                    onChange={handleFormCapture}
+                    className="border rounded px-2"
+                    placeholder="Quantity in-stock"
+                    required
+                  />
+                </label>
                 <input
-                  type="text"
-                  id="name"
-                  onChange={handleFormCapture}
-                  className="border rounded px-2"
-                  placeholder="Product Name"
-                  required
+                  type="submit"
+                  value="Add Product"
+                  className="w-max border px-2 py-1 rounded bg-[#ccffcc]"
                 />
-              </label>
-              <label className="flex gap-2">
-                <div className="text-lg font-bold">Product Price:</div>
-                <input
-                  type="number"
-                  step=".01"
-                  id="price"
-                  onChange={handleFormCapture}
-                  className="border rounded px-2"
-                  placeholder="32.99, 8.50, 79.95, etc"
-                  required
-                />
-              </label>
-              <label className="flex gap-2">
-                <div className="text-lg font-bold">Product Quantity:</div>
-                <input
-                  type="number"
-                  id="quantity"
-                  onChange={handleFormCapture}
-                  className="border rounded px-2"
-                  placeholder="Quantity in-stock"
-                  required
-                />
-              </label>
-              <input
-                type="submit"
-                value="Add Product"
-                className="w-max border px-2 py-1 rounded bg-[#ccffcc]"
-              />
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
