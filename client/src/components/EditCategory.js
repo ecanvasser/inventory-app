@@ -1,12 +1,15 @@
 import Navbar from "./Navbar";
+import CategoryMessage from "./CategoryMessage";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const EditCategory = () => {
+  const [category, setCategory] = useState();
+  const [relatedProducts, setRelatedProducts] = useState();
+  const [showMessage, setShowMessage] = useState(false);
+  const [error, setError] = useState();
   const params = useParams();
   const navigate = useNavigate();
-  const [category, setCategory] = useState();
-  const [error, setError] = useState();
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -27,6 +30,25 @@ const EditCategory = () => {
       }
     };
     fetchCategory();
+  }, []);
+
+  useEffect(() => {
+    const fetchRelatedProducts = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/products");
+        const data = await response.json();
+        setRelatedProducts(
+          data.filter((obj) => {
+            if (obj._categoryid === params.id) {
+              return obj;
+            }
+          })
+        );
+      } catch (err) {
+        setError(err);
+      }
+    };
+    fetchRelatedProducts();
   }, []);
 
   const formUpdate = (e) => {
@@ -51,23 +73,28 @@ const EditCategory = () => {
   };
 
   const formDelete = (e) => {
-    e.preventDefault();
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    };
-    const deleteCategory = async () => {
-      try {
-        await fetch(
-          `http://localhost:8000/product-categories/delete/${params.id}`,
-          requestOptions
-        );
-      } catch (err) {
-        setError(err)
-      }
-    };
-    deleteCategory();
-    navigate("/categories");
+    if (relatedProducts.length < 1) {
+      e.preventDefault();
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      };
+      const deleteCategory = async () => {
+        try {
+          await fetch(
+            `http://localhost:8000/product-categories/delete/${params.id}`,
+            requestOptions
+          );
+        } catch (err) {
+          setError(err);
+        }
+      };
+      deleteCategory();
+      navigate("/categories");
+    } else {
+      e.preventDefault();
+      setShowMessage(true);
+    }
   };
 
   if (category) {
@@ -107,9 +134,12 @@ const EditCategory = () => {
                 value="Update Category"
                 className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
               />
-              <button onClick={formDelete} className="border rounded px-2 py-1">Delete</button>
+              <button onClick={formDelete} className="border bg-[#f4a4a4] rounded px-2 py-1">
+                Delete
+              </button>
             </div>
           </form>
+          {showMessage ? <CategoryMessage products={relatedProducts} closeMessage={() => {setShowMessage(false)}} /> : null}
         </div>
       </div>
     );
