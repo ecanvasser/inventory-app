@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
+import NavbarLinks from "./NavbarLinks";
 
 const NewModel = () => {
   const [makes, setMakes] = useState();
   const [formMake, setFormMake] = useState();
   const [formModel, setFormModel] = useState();
   const [err, setErr] = useState();
+  const [showLinks, setShowLinks] = useState(false);
 
   useEffect(() => {
     const fetchMakes = async () => {
@@ -65,12 +67,12 @@ const NewModel = () => {
     return (
       <div
         id="newmodel-container"
-        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
+        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
         <Navbar />
         <div
           id="form-container"
-          className="w-10/12 py-16 pl-32 animate__animated animate__slideInRight"
+          className="flex flex-col items-center mt-5 animate__animated animate__slideInRight"
         >
           <div id="section-title" className="text-4xl font-extrabold">
             New Vehicle Model
@@ -78,7 +80,7 @@ const NewModel = () => {
           <form
             id="new-model"
             onSubmit={handleSubmit}
-            className="mt-10 flex flex-col gap-10"
+            className="mt-10 flex flex-col items-center gap-8"
           >
             <label className="flex items-center gap-5">
               <div className="text-xl font-bold">Vehicle Make:</div>
@@ -106,6 +108,7 @@ const NewModel = () => {
                 name="model"
                 className="border rounded p-1"
                 type="text"
+                placeholder="Vehicle Model"
                 minLength={2}
                 onChange={(e) => setFormModel(e.target.value)}
                 required
@@ -113,7 +116,8 @@ const NewModel = () => {
             </label>
             <input
               type="submit"
-              className="border bg-[#ccffcc] w-1/5 py-1 rounded"
+              value="Add Model"
+              className="border bg-[#ccffcc] w-max py-1 px-2 rounded"
             />
           </form>
         </div>
