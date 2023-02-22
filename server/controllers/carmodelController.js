@@ -46,3 +46,12 @@ exports.edit_carmodel = function (req, res) {
     res.send("Model updated");
   });
 };
+
+exports.delete_carmodel = function (req, res) {
+  Model.findByIdAndDelete(req.params.id, (err) => {
+    if (err) {
+      res.status(404).json(err)
+    }
+    res.send("Model deleted")
+  })
+}

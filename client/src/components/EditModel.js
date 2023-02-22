@@ -1,10 +1,13 @@
 import Navbar from "./Navbar";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import ModelMessage from "./ModelMessage";
 
 const EditModel = () => {
   const [vehicle, setVehicle] = useState();
   const [makes, setMakes] = useState();
+  const [relatedProducts, setRelatedProducts] = useState();
+  const [showMessage, setShowMessage] = useState(false);
   const [error, setError] = useState();
   const params = useParams();
   const navigate = useNavigate();
@@ -43,6 +46,27 @@ const EditModel = () => {
     fetchMakes();
   }, []);
 
+  // Find all products that belong to vehicle model
+  useEffect(() => {
+    const fetchRelatedProducts = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/products");
+        const data = await response.json();
+        setRelatedProducts(
+          data.filter((obj) => {
+            if (obj._modelid === params.id) {
+              return obj;
+            }
+          })
+        );
+      } catch (err) {
+        setError(err);
+      }
+    };
+    fetchRelatedProducts();
+  }, []);
+
+  // Submits updated vehicle model
   const formSubmit = (e) => {
     e.preventDefault();
     const requestOptions = {
@@ -65,6 +89,32 @@ const EditModel = () => {
     };
     postModel();
     navigate("/vehicle-models");
+  };
+
+  // Controls delete and error message
+  const formDelete = (e) => {
+    if (relatedProducts.length < 1) {
+      e.preventDefault();
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      };
+      const deleteModel = async () => {
+        try {
+          await fetch(
+            `http://localhost:8000/models/delete/${params.id}`,
+            requestOptions
+          );
+        } catch (err) {
+          setError(err);
+        }
+      };
+      deleteModel();
+      navigate("/vehicle-models");
+    } else {
+      e.preventDefault();
+      setShowMessage(true);
+    }
   };
 
   if (vehicle && makes) {
@@ -112,12 +162,26 @@ const EditModel = () => {
                 required
               />
             </label>
-            <input
-              type="submit"
-              value="Update Model"
-              className="w-max px-2 py-1 border rounded mt-4 bg-[#ccffcc]"
-            />
+            <div id="buttons" className="flex gap-4">
+              <input
+                type="submit"
+                value="Update Model"
+                className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
+              />
+              <button
+                onClick={formDelete}
+                className="border bg-[#f4a4a4] rounded px-2 py-1"
+              >
+                Delete
+              </button>
+            </div>
           </form>
+          {showMessage ? (
+            <ModelMessage
+              products={relatedProducts}
+              closeMessage={() => setShowMessage(false)}
+            />
+          ) : null}
         </div>
       </div>
     );
