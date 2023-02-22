@@ -1,13 +1,15 @@
 import Navbar from "./Navbar";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ModelMessage from "./ModelMessage";
+import NavbarLinks from "./NavbarLinks";
 
 const EditModel = () => {
   const [vehicle, setVehicle] = useState();
   const [makes, setMakes] = useState();
   const [relatedProducts, setRelatedProducts] = useState();
   const [showMessage, setShowMessage] = useState(false);
+  const [showLinks, setShowLinks] = useState(false);
   const [error, setError] = useState();
   const params = useParams();
   const navigate = useNavigate();
@@ -121,68 +123,81 @@ const EditModel = () => {
     return (
       <div
         id="editmodel-container"
-        className="grid grid-cols-[0.4fr_1.6fr] h-screen"
+        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
-        <Navbar />
-        <div
-          id="editmodel-body"
-          className="py-16 pl-24 animate__animated animate__slideInDown"
-        >
-          <div id="editmodel-title" className="text-4xl font-extrabold">
-            Edit Vehicle Model
+        <Navbar
+          handleNav={() => {
+            setShowLinks(!showLinks);
+          }}
+        />
+        {showLinks ? (
+          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <NavbarLinks />
           </div>
-          <form className="mt-10 flex flex-col gap-6" onSubmit={formSubmit}>
-            <label className="flex items-center gap-2">
-              <div className="text-lg font-bold">Make:</div>
-              <select
-                defaultValue={vehicle._makeid}
-                onChange={(e) =>
-                  setVehicle({ ...vehicle, _makeid: e.target.value })
-                }
-                className="border rounded p-1"
-              >
-                {makes.map((obj) => {
-                  return (
-                    <option key={obj._id} id={obj.make} value={obj._id}>
-                      {obj.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </label>
-            <label className="flex gap-2">
-              <div className="text-lg font-bold">Model:</div>
-              <input
-                type="text"
-                onChange={(e) =>
-                  setVehicle({ ...vehicle, model: e.target.value })
-                }
-                className="border rounded pl-2"
-                defaultValue={vehicle.model}
-                required
-              />
-            </label>
-            <div id="buttons" className="flex gap-4">
-              <input
-                type="submit"
-                value="Update Model"
-                className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
-              />
-              <button
-                onClick={formDelete}
-                className="border bg-[#f4a4a4] rounded px-2 py-1"
-              >
-                Delete
-              </button>
+        ) : (
+          <div
+            id="editmodel-body"
+            className="flex flex-col items-center animate__animated animate__slideInLeft"
+          >
+            <div id="editmodel-title" className="text-4xl font-extrabold">
+              Edit Vehicle Model
             </div>
-          </form>
-          {showMessage ? (
-            <ModelMessage
-              products={relatedProducts}
-              closeMessage={() => setShowMessage(false)}
-            />
-          ) : null}
-        </div>
+            <form
+              className="mt-10 flex flex-col items-center gap-8"
+              onSubmit={formSubmit}
+            >
+              <label className="flex items-center gap-2">
+                <div className="text-lg font-bold">Make:</div>
+                <select
+                  defaultValue={vehicle._makeid}
+                  onChange={(e) =>
+                    setVehicle({ ...vehicle, _makeid: e.target.value })
+                  }
+                  className="border rounded p-1"
+                >
+                  {makes.map((obj) => {
+                    return (
+                      <option key={obj._id} id={obj.make} value={obj._id}>
+                        {obj.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </label>
+              <label className="flex gap-2">
+                <div className="text-lg font-bold">Model:</div>
+                <input
+                  type="text"
+                  onChange={(e) =>
+                    setVehicle({ ...vehicle, model: e.target.value })
+                  }
+                  className="border rounded pl-2"
+                  defaultValue={vehicle.model}
+                  required
+                />
+              </label>
+              <div id="buttons" className="flex gap-4">
+                <input
+                  type="submit"
+                  value="Update Model"
+                  className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
+                />
+                <button
+                  onClick={formDelete}
+                  className="border bg-[#f4a4a4] rounded px-2 py-1"
+                >
+                  Delete
+                </button>
+              </div>
+            </form>
+            {showMessage ? (
+              <ModelMessage
+                products={relatedProducts}
+                closeMessage={() => setShowMessage(false)}
+              />
+            ) : null}
+          </div>
+        )}
       </div>
     );
   }
