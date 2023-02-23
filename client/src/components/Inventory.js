@@ -141,42 +141,51 @@ const Inventory = () => {
         className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
         {showLinks ? (
-          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+          <>
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <NavbarLinks />
-          </div>
+            <div className="flex flex-col items-center gap-10 animate__animated animate__fadeInRight">
+              <NavbarLinks />
+            </div>
+          </>
         ) : isMobile ? (
-          <div id="products" className="flex flex-col items-center">
+          <div
+            id="inventory-container"
+            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div className="text-4xl font-extrabold">Inventory</div>
-            <InventoryFilters
-              makes={makes}
-              categories={categories}
-              search={search}
-              handleMakeFilter={selectMakeFilter}
-              handleCategoryFilter={selectCategoryFilter}
-              handleSearch={searchValue}
-            />
-            <div id="product-filters" className="flex"></div>
-            <div
-              id="product-rows"
-              className="mt-16 w-11/12 grid grid-cols-1 gap-4"
-            >
-              {searchProducts.map((obj, i) => {
-                return (
-                  <Link to={`/inventory/${obj._id}`}>
-                    <InventoryTile data={obj} key={obj._id} />
-                  </Link>
-                );
-              })}
+            <div id="products" className="flex flex-col pb-16 items-center">
+              <div className="text-4xl font-extrabold">Inventory</div>
+              <InventoryFilters
+                makes={makes}
+                categories={categories}
+                search={search}
+                makeFilter={makeFilter}
+                categoryFilter={categoryFilter}
+                handleMakeFilter={selectMakeFilter}
+                handleCategoryFilter={selectCategoryFilter}
+                handleSearch={searchValue}
+              />
+              <div id="product-filters" className="flex"></div>
+              <div
+                id="product-rows"
+                className="mt-16 w-11/12 grid grid-cols-1 gap-4"
+              >
+                {searchProducts.map((obj, i) => {
+                  return (
+                    <Link to={`/inventory/${obj._id}`}>
+                      <InventoryTile data={obj} key={obj._id} />
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         ) : (
@@ -185,13 +194,15 @@ const Inventory = () => {
             className="grid grid-cols-[0.4fr_1.5fr] h-screen"
           >
             <VerticalNav />
-            <div className="flex flex-col md:mt-16 items-center">
+            <div className="flex flex-col md:my-16 items-center">
               <div>
                 <div className="text-4xl font-extrabold">Inventory</div>
                 <InventoryFilters
                   makes={makes}
                   categories={categories}
                   search={search}
+                  makeFilter={makeFilter}
+                  categoryFilter={categoryFilter}
                   handleMakeFilter={selectMakeFilter}
                   handleCategoryFilter={selectCategoryFilter}
                   handleSearch={searchValue}
@@ -223,38 +234,84 @@ const Inventory = () => {
         id="inventory-container"
         className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
-        <Navbar
-          handleNav={() => {
-            setShowLinks(!showLinks);
-          }}
-        />
         {showLinks ? (
-          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
-            <NavbarLinks />
+          <>
+            <Navbar
+              handleNav={() => {
+                setShowLinks(!showLinks);
+              }}
+            />
+            <div className="flex flex-col items-center gap-10 animate__animated animate__fadeInRight">
+              <NavbarLinks />
+            </div>
+          </>
+        ) : isMobile ? (
+          <div
+            id="inventory-container"
+            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          >
+            <Navbar
+              handleNav={() => {
+                setShowLinks(!showLinks);
+              }}
+            />
+            <div id="products" className="flex flex-col pb-16 items-center">
+              <div className="text-4xl font-extrabold">Inventory</div>
+              <InventoryFilters
+                makes={makes}
+                categories={categories}
+                handleSearch={searchValue}
+                makeFilter={makeFilter}
+                categoryFilter={categoryFilter}
+                handleMakeFilter={selectMakeFilter}
+                handleCategoryFilter={selectCategoryFilter}
+              />
+              <div id="product-filters" className="flex"></div>
+              <div
+                id="product-rows"
+                className="mt-16 w-11/12 grid grid-cols-1 gap-4"
+              >
+                {filteredProducts.map((obj, i) => {
+                  return (
+                    <Link to={`/inventory/${obj._id}`}>
+                      <InventoryTile data={obj} key={obj._id} />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         ) : (
-          <div id="products" className="flex flex-col items-center">
-            <div className="text-4xl font-extrabold">Inventory</div>
-            <InventoryFilters
-              makes={makes}
-              categories={categories}
-              search={search}
-              handleMakeFilter={selectMakeFilter}
-              handleCategoryFilter={selectCategoryFilter}
-              handleSearch={searchValue}
-            />
-            <div id="product-filters" className="flex"></div>
-            <div
-              id="product-rows"
-              className="mt-16 w-11/12 grid grid-cols-1 gap-4"
-            >
-              {filteredProducts.map((obj, i) => {
-                return (
-                  <Link to={`/inventory/${obj._id}`}>
-                    <InventoryTile data={obj} key={obj._id} />
-                  </Link>
-                );
-              })}
+          <div
+            id="inventory-container"
+            className="grid grid-cols-[0.4fr_1.5fr] h-screen"
+          >
+            <VerticalNav />
+            <div id="products" className="flex flex-col md:my-16 items-center">
+              <div>
+                <div className="text-4xl font-extrabold">Inventory</div>
+                <InventoryFilters
+                  makes={makes}
+                  categories={categories}
+                  handleSearch={searchValue}
+                  makeFilter={makeFilter}
+                  categoryFilter={categoryFilter}
+                  handleMakeFilter={selectMakeFilter}
+                  handleCategoryFilter={selectCategoryFilter}
+                />
+                <div
+                  id="product-rows"
+                  className="mt-16 w-[900px] grid grid-cols-1 gap-4"
+                >
+                  {filteredProducts.map((obj, i) => {
+                    return (
+                      <Link to={`/inventory/${obj._id}`}>
+                        <InventoryTile data={obj} key={obj._id} />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -269,14 +326,16 @@ const Inventory = () => {
         className="grid grid-rows-[0.3fr_1.7fr] h-screen"
       >
         {showLinks ? (
-          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+          <>
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <NavbarLinks />
-          </div>
+            <div className="flex flex-col items-center gap-10 animate__animated animate__fadeInRight">
+              <NavbarLinks />
+            </div>
+          </>
         ) : isMobile ? (
           <div
             id="inventory-container"
@@ -287,12 +346,14 @@ const Inventory = () => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div id="products" className="flex flex-col items-center">
+            <div id="products" className="flex flex-col pb-16 items-center">
               <div className="text-4xl font-extrabold">Inventory</div>
               <InventoryFilters
                 makes={makes}
                 categories={categories}
                 handleSearch={searchValue}
+                makeFilter={makeFilter}
+                categoryFilter={categoryFilter}
                 handleMakeFilter={selectMakeFilter}
                 handleCategoryFilter={selectCategoryFilter}
               />
@@ -317,13 +378,15 @@ const Inventory = () => {
             className="grid grid-cols-[0.4fr_1.5fr] h-screen"
           >
             <VerticalNav />
-            <div id="products" className="flex flex-col md:mt-16 items-center">
+            <div id="products" className="flex flex-col my-16 items-center">
               <div>
                 <div className="text-4xl font-extrabold">Inventory</div>
                 <InventoryFilters
                   makes={makes}
                   categories={categories}
                   handleSearch={searchValue}
+                  makeFilter={makeFilter}
+                  categoryFilter={categoryFilter}
                   handleMakeFilter={selectMakeFilter}
                   handleCategoryFilter={selectCategoryFilter}
                 />

@@ -3,7 +3,9 @@ import { IconContext } from "react-icons";
 
 const InventoryFilters = ({
   makes,
+  makeFilter,
   categories,
+  categoryFilter,
   search,
   handleSearch,
   handleMakeFilter,
@@ -21,6 +23,7 @@ const InventoryFilters = ({
         <input
           className="p-1 border rounded"
           placeholder="Product Name"
+          value={search}
           onChange={handleSearch}
         />
       </div>
@@ -28,10 +31,10 @@ const InventoryFilters = ({
         <div id="makes-filter">
           <label className="font-bold text-lg flex items-center gap-2">
             Make:
-            <select id="makes" className="border rounded p-1" onChange={handleMakeFilter}>
+            <select id="makes" defaultValue={makeFilter} className="border rounded p-1" onChange={handleMakeFilter}>
             <option>-</option>
             {makes.map((make, i) => {
-              return <option key={i}>{make.name}</option>;
+              return <option value={make.name} key={i}>{make.name}</option>;
             })}
           </select>
           </label>
@@ -43,11 +46,12 @@ const InventoryFilters = ({
             <select
             id="categories"
             className="border rounded p-1 pr-10"
+            defaultValue={categoryFilter}
             onChange={handleCategoryFilter}
           >
             <option>-</option>
             {categories.map((obj, i) => {
-              return <option key={i}>{obj.name}</option>;
+              return <option value={obj.name} key={i}>{obj.name}</option>;
             })}
           </select>
           </label>
