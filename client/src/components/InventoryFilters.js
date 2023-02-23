@@ -12,7 +12,7 @@ const InventoryFilters = ({
   return (
     <div
       id="filters-container"
-      className="flex flex-col gap-4 mt-10 items-center justify-center"
+      className="flex flex-col sm:flex-row gap-4 mt-10 items-center"
     >
       <div id="search-bar" className="flex items-center gap-2">
         <IconContext.Provider value={{ size: "1.8em" }}>
