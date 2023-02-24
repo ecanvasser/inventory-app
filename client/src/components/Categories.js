@@ -2,11 +2,13 @@ import Navbar from "./Navbar";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavbarLinks from "./NavbarLinks";
+import VerticalNav from "./VerticalNav";
 
 const Categories = () => {
   const [categories, setCategories] = useState();
   const [err, setError] = useState();
   const [showLinks, setShowLinks] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -21,6 +23,15 @@ const Categories = () => {
       }
     };
     fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   if (err) {
@@ -41,45 +52,87 @@ const Categories = () => {
 
   if (categories) {
     return (
-      <div
-        id="categories-container"
-        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
-      >
-        <Navbar
-          handleNav={() => {
-            setShowLinks(!showLinks);
-          }}
-        />
+      <>
         {showLinks ? (
-          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
-            <NavbarLinks />
+          <div
+            id="categories-container"
+            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          >
+            <Navbar
+              handleNav={() => {
+                setShowLinks(!showLinks);
+              }}
+            />
+            <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+              <NavbarLinks />
+            </div>
+          </div>
+        ) : isMobile ? (
+          <div
+            id="categories-container"
+            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          >
+            <Navbar
+              handleNav={() => {
+                setShowLinks(!showLinks);
+              }}
+            />
+            <div
+              id="categories-body"
+              className="mt-8 flex flex-col items-center animate__animated animate__slideInLeft"
+            >
+              <div id="section-title" className="text-4xl font-extrabold">
+                Product Categories
+              </div>
+              <div id="category-tiles" className="flex flex-wrap gap-4 mt-10">
+                {categories.map((obj) => {
+                  return (
+                    <Link to={obj._id}>
+                      <div
+                        id="category-tile"
+                        key={obj._id}
+                        className="p-2 border rounded bg-[#E0FFFF]"
+                      >
+                        {obj.name}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         ) : (
           <div
-            id="categories-body"
-            className="mt-8 flex flex-col items-center animate__animated animate__slideInLeft"
+            id="inventory-container"
+            className="grid grid-cols-[0.4fr_1.5fr] h-screen"
           >
-            <div id="section-title" className="text-4xl font-extrabold">
-              Product Categories
-            </div>
-            <div id="category-tiles" className="flex flex-wrap gap-4 mt-10">
-              {categories.map((obj) => {
-                return (
-                  <Link to={obj._id}>
-                    <div
-                      id="category-tile"
-                      key={obj._id}
-                      className="p-2 border rounded bg-[#E0FFFF]"
-                    >
-                      {obj.name}
-                    </div>
-                  </Link>
-                );
-              })}
+            <VerticalNav />
+            <div
+              id="categories-body"
+              className="mt-20 ml-24 flex flex-col animate__animated animate__slideInLeft"
+            >
+              <div id="section-title" className="text-4xl font-extrabold">
+                Product Categories
+              </div>
+              <div id="category-tiles" className="flex flex-wrap gap-4 mt-10">
+                {categories.map((obj) => {
+                  return (
+                    <Link to={obj._id}>
+                      <div
+                        id="category-tile"
+                        key={obj._id}
+                        className="p-2 border rounded bg-[#E0FFFF]"
+                      >
+                        {obj.name}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}
-      </div>
+      </>
     );
   }
 };

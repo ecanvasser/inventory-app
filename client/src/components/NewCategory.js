@@ -1,12 +1,23 @@
 import Navbar from "./Navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavbarLinks from "./NavbarLinks";
+import VerticalNav from "./VerticalNav";
 
 const NewCategory = () => {
   const [newcategory, setNewCategory] = useState();
   const [apiresponse, setApiResponse] = useState();
   const [error, setError] = useState();
   const [showLinks, setShowLinks] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleChange = (e) => {
     setNewCategory(e.target.value);
@@ -35,49 +46,95 @@ const NewCategory = () => {
   };
 
   return (
-    <div
-      id="newcategory-container"
-      className="grid grid-rows-[0.3fr_1.7fr] h-screen"
-    >
-      <Navbar
-        handleNav={() => {
-          setShowLinks(!showLinks);
-        }}
-      />
+    <>
       {showLinks ? (
-        <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
-          <NavbarLinks />
+        <div
+          id="newcategory-container"
+          className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+        >
+          <Navbar
+            handleNav={() => {
+              setShowLinks(!showLinks);
+            }}
+          />
+          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <NavbarLinks />
+          </div>
+        </div>
+      ) : isMobile ? (
+        <div
+          id="newcategory-container"
+          className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+        >
+          <Navbar
+            handleNav={() => {
+              setShowLinks(!showLinks);
+            }}
+          />
+          <div
+            id="newcategory-body"
+            className="flex flex-col items-center animate__animated animate__slideInLeft"
+          >
+            <div id="nc-title" className="text-4xl font-extrabold">
+              Add New Category
+            </div>
+            <form
+              id="nc-form"
+              onSubmit={handleSubmit}
+              className="flex flex-col items-center gap-8 mt-10"
+            >
+              <label className="flex gap-2 font-bold text-xl">
+                Category Name:
+                <input
+                  type="text"
+                  className="border rounded pl-2 font-medium"
+                  placeholder="Category"
+                  onChange={handleChange}
+                />
+              </label>
+              <input
+                type="submit"
+                className="w-max border py-1 px-3 rounded bg-[#ccffcc]"
+              />
+            </form>
+          </div>
         </div>
       ) : (
         <div
-          id="newcategory-body"
-          className="flex flex-col items-center animate__animated animate__slideInLeft"
+          id="inventory-container"
+          className="grid grid-cols-[0.4fr_1.5fr] h-screen"
         >
-          <div id="nc-title" className="text-4xl font-extrabold">
-            Add New Category
-          </div>
-          <form
-            id="nc-form"
-            onSubmit={handleSubmit}
-            className="flex flex-col items-center gap-8 mt-10"
+          <VerticalNav />
+          <div
+            id="newcategory-body"
+            className="flex flex-col mt-20 ml-24 animate__animated animate__slideInLeft"
           >
-            <label className="flex gap-2 font-bold text-xl">
-              Category Name:
+            <div id="nc-title" className="text-4xl font-extrabold">
+              Add New Category
+            </div>
+            <form
+              id="nc-form"
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-8 mt-10"
+            >
+              <label className="flex gap-2 font-bold text-xl">
+                Category Name:
+                <input
+                  type="text"
+                  className="border rounded pl-2 font-medium"
+                  placeholder="Category"
+                  onChange={handleChange}
+                />
+              </label>
               <input
-                type="text"
-                className="border rounded pl-2 font-medium"
-                placeholder="Category"
-                onChange={handleChange}
+                type="submit"
+                className="w-max border py-1 px-3 rounded bg-[#ccffcc]"
               />
-            </label>
-            <input
-              type="submit"
-              className="w-max border py-1 px-3 rounded bg-[#ccffcc]"
-            />
-          </form>
+            </form>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
