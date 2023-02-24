@@ -128,20 +128,20 @@ const EditProduct = () => {
         {showLinks ? (
           <div
             id="editproduct-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <div className="flex flex-col mt-8 gap-10 items-center animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
           </div>
         ) : isMobile ? (
-          <>
-            <div className="flex justify-end">
+          <div>
+            <div className="flex flex-col justify-end">
               <Navbar
                 handleNav={() => {
                   setShowLinks(!showLinks);
@@ -255,7 +255,7 @@ const EditProduct = () => {
                 </div>
               </form>
             </div>
-          </>
+          </div>
         ) : (
           <>
             <div

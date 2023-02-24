@@ -136,21 +136,21 @@ const EditModel = () => {
         {showLinks ? (
           <div
             id="editmodel-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <div className="flex flex-col mt-8 gap-10 items-center animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
           </div>
         ) : isMobile ? (
           <div
             id="editmodel-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
@@ -159,7 +159,7 @@ const EditModel = () => {
             />
             <div
               id="editmodel-body"
-              className="flex flex-col items-center animate__animated animate__slideInLeft"
+              className="flex flex-col mt-8 items-center animate__animated animate__slideInLeft"
             >
               <div id="editmodel-title" className="text-4xl font-extrabold">
                 Edit Vehicle Model

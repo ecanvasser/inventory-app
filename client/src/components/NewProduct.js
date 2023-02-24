@@ -101,14 +101,14 @@ const NewProduct = () => {
         {showLinks ? (
           <div
             id="categories-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <div className="flex flex-col mt-8 gap-10 items-center animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
           </div>
@@ -116,7 +116,7 @@ const NewProduct = () => {
           (
             <div
               id="categories-container"
-              className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+              className="grid grid-rows-[0.3fr_1.7fr]"
             >
               <Navbar
                 handleNav={() => {
@@ -125,7 +125,7 @@ const NewProduct = () => {
               />
               <div
                 id="newproduct-body"
-                className="flex flex-col items-center animate__animated animate__slideInLeft"
+                className="flex flex-col mt-8 items-center animate__animated animate__slideInLeft"
               >
                 <div id="section-title" className="text-4xl font-extrabold">
                   Add New Product

@@ -140,28 +140,28 @@ const Inventory = () => {
         {showLinks ? (
           <div
             id="inventory-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div className="flex flex-col items-center gap-10 animate__animated animate__fadeInRight">
+            <div className="flex flex-col mt-8 items-center gap-10 animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
           </div>
         ) : isMobile ? (
           <div
             id="inventory-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div id="products" className="flex flex-col pb-16 items-center">
+            <div id="products" className="flex flex-col mt-12 pb-16 items-center">
               <div className="text-4xl font-extrabold">Inventory</div>
               <InventoryFilters
                 makes={makes}
@@ -234,28 +234,28 @@ const Inventory = () => {
         {showLinks ? (
           <div
             id="inventory-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div className="flex flex-col items-center gap-10 animate__animated animate__fadeInRight">
+            <div className="flex flex-col mt-8 items-center gap-10 animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
           </div>
         ) : isMobile ? (
           <div
             id="inventory-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div id="products" className="flex flex-col pb-16 items-center">
+            <div id="products" className="flex flex-col mt-12 pb-16 items-center">
               <div className="text-4xl font-extrabold">Inventory</div>
               <InventoryFilters
                 makes={makes}
@@ -325,14 +325,14 @@ const Inventory = () => {
         {showLinks ? (
           <div
             id="inventory-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div className="flex flex-col items-center gap-10 animate__animated animate__fadeInRight">
+            <div className="flex flex-col mt-8 items-center gap-10 animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
           </div>
@@ -346,7 +346,7 @@ const Inventory = () => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div id="products" className="flex flex-col pb-16 items-center">
+            <div id="products" className="flex flex-col mt-12 pb-16 items-center">
               <div className="text-4xl font-extrabold">Inventory</div>
               <InventoryFilters
                 makes={makes}

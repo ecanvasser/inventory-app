@@ -3,7 +3,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = ({ handleNav }) => {
   return (
-    <nav className="flex justify-end pb-3 mt-4 mr-5">
+    <nav className="flex items-center justify-end py-3 pr-5 shadow-md">
       <div id="home-icon" className="">
         <IconContext.Provider value={{ size: "3em" }}>
           <button onClick={handleNav}>

@@ -22,10 +22,10 @@ const AdminSettings = () => {
       {showLinks ? (
         <div
           id="settings-container"
-          className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          className="grid grid-rows-[0.3fr_1.7fr]"
         >
           <Navbar handleNav={() => setShowLinks(!showLinks)} />
-          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+          <div className="flex flex-col gap-10 mt-8 items-center animate__animated animate__fadeInRight">
             <NavbarLinks />
           </div>
         </div>
@@ -34,7 +34,7 @@ const AdminSettings = () => {
           <Navbar handleNav={() => setShowLinks(!showLinks)} />
           <div
             id="setting-links"
-            className="mt-8  animate__animated animate__slideInLeft"
+            className="mt-12 animate__animated animate__slideInLeft"
           >
             <div
               id="section-title"

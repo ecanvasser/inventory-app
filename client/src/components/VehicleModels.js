@@ -54,21 +54,21 @@ const VehicleModels = () => {
         {showLinks ? (
           <div
             id="models-container"
-            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+            className="grid grid-rows-[0.3fr_1.7fr]"
           >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
               }}
             />
-            <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+            <div className="flex flex-col mt-8 gap-10 items-center animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
           </div>
         ) : isMobile ? (
           <div
           id="models-container"
-          className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          className="grid grid-rows-[0.3fr_1.7fr]"
         >
           <Navbar
             handleNav={() => {
@@ -77,12 +77,12 @@ const VehicleModels = () => {
           />
           <div
             id="models-body"
-            className="flex flex-col items-center animate__animated animate__slideInLeft"
+            className="flex flex-col mt-12 items-center animate__animated animate__slideInLeft"
           >
             <div id="section-title" className="text-4xl font-extrabold">
               Vehicle Models
             </div>
-            <div id="model-tiles" className="mt-16 flex flex-col sm:flex-row gap-16">
+            <div id="model-tiles" className="mt-8 flex flex-col sm:flex-row gap-8">
               <div id="audi-models" className="flex flex-col items-center">
                 <div id="audi-title" className="font-bold text-2xl mb-4">
                   Audi Models
@@ -141,7 +141,7 @@ const VehicleModels = () => {
             <div id="section-title" className="text-4xl font-extrabold">
               Vehicle Models
             </div>
-            <div id="model-tiles" className="mt-16 flex flex-col sm:flex-row md:flex-col gap-16">
+            <div id="model-tiles" className="mt-8 flex flex-col sm:flex-row md:flex-col gap-8">
               <div id="audi-models" className="flex flex-col">
                 <div id="audi-title" className="font-bold text-2xl mb-4">
                   Audi Models

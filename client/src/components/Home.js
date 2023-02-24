@@ -25,11 +25,11 @@ const Home = () => {
     return (
       <div
         id="home-dashboard"
-        className="grid grid-rows-[0.3fr_1.7fr] md:grid-cols-[0.4fr_1.6fr] md:grid-rows-none h-screen"
+        className="grid grid-rows-[0.2fr_1.7fr] md:grid-cols-[0.4fr_1.6fr] md:grid-rows-none"
       >
         <Navbar handleNav={handleNav} />
         {showLinks ? (
-          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+          <div className="flex flex-col mt-8 gap-10 items-center animate__animated animate__fadeInRight">
             <NavbarLinks />
           </div>
         ) : (
