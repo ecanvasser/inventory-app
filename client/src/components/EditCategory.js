@@ -3,6 +3,7 @@ import CategoryMessage from "./CategoryMessage";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import NavbarLinks from "./NavbarLinks";
+import VerticalNav from "./VerticalNav";
 
 const EditCategory = () => {
   const [category, setCategory] = useState();
@@ -10,6 +11,7 @@ const EditCategory = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [error, setError] = useState();
   const [showLinks, setShowLinks] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -51,6 +53,15 @@ const EditCategory = () => {
       }
     };
     fetchRelatedProducts();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const formUpdate = (e) => {
@@ -101,69 +112,135 @@ const EditCategory = () => {
 
   if (category) {
     return (
-      <div
-        id="editcategory-container"
-        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
-      >
-        <Navbar
-          handleNav={() => {
-            setShowLinks(!showLinks);
-          }}
-        />
+      <>
         {showLinks ? (
-          <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
-            <NavbarLinks />
+          <div
+            id="editcategory-container"
+            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          >
+            <Navbar
+              handleNav={() => {
+                setShowLinks(!showLinks);
+              }}
+            />
+            <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
+              <NavbarLinks />
+            </div>
+          </div>
+        ) : isMobile ? (
+          <div
+            id="editcategory-container"
+            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          >
+            <Navbar
+              handleNav={() => {
+                setShowLinks(!showLinks);
+              }}
+            />
+            <div
+              id="editcategory-body"
+              className="flex flex-col items-center animate__animated animate__slideInLeft"
+            >
+              <div id="editcategory-title" className="text-4xl font-extrabold">
+                Edit Category
+              </div>
+              <form
+                id="editcategory"
+                onSubmit={formUpdate}
+                className="mt-10 flex flex-col items-center gap-8"
+              >
+                <label className="flex gap-2">
+                  <div className="text-lg font-bold">Name:</div>
+                  <input
+                    type="text"
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                    }}
+                    value={category}
+                    required
+                    className="py-1 pl-2 border rounded"
+                  />
+                </label>
+                <div id="buttons" className="flex gap-4">
+                  <input
+                    type="submit"
+                    value="Update Category"
+                    className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
+                  />
+                  <button
+                    onClick={formDelete}
+                    className="border bg-[#f4a4a4] rounded px-2 py-1"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </form>
+              {showMessage ? (
+                <CategoryMessage
+                  products={relatedProducts}
+                  closeMessage={() => {
+                    setShowMessage(false);
+                  }}
+                />
+              ) : null}
+            </div>
           </div>
         ) : (
           <div
-            id="editcategory-body"
-            className="flex flex-col items-center animate__animated animate__slideInLeft"
+            id="editcategory-container"
+            className="grid grid-cols-[0.4fr_1.5fr] h-screen"
           >
-            <div id="editcategory-title" className="text-4xl font-extrabold">
-              Edit Category
-            </div>
-            <form
-              id="editcategory"
-              onSubmit={formUpdate}
-              className="mt-10 flex flex-col items-center gap-8"
+            <VerticalNav />
+            <div
+              id="editcategory-body"
+              className="flex flex-col mt-20 ml-24 animate__animated animate__slideInLeft"
             >
-              <label className="flex gap-2">
-                <div className="text-lg font-bold">Name:</div>
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}
-                  value={category}
-                  required
-                  className="py-1 pl-2 border rounded"
-                />
-              </label>
-              <div id="buttons" className="flex gap-4">
-                <input
-                  type="submit"
-                  value="Update Category"
-                  className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
-                />
-                <button
-                  onClick={formDelete}
-                  className="border bg-[#f4a4a4] rounded px-2 py-1"
-                >
-                  Delete
-                </button>
+              <div id="editcategory-title" className="text-4xl font-extrabold">
+                Edit Category
               </div>
-            </form>
-            {showMessage ? (
-              <CategoryMessage
-                products={relatedProducts}
-                closeMessage={() => {
-                  setShowMessage(false);
-                }}
-              />
-            ) : null}
+              <form
+                id="editcategory"
+                onSubmit={formUpdate}
+                className="mt-10 flex flex-col gap-8"
+              >
+                <label className="flex gap-2">
+                  <div className="text-lg font-bold">Name:</div>
+                  <input
+                    type="text"
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                    }}
+                    value={category}
+                    required
+                    className="py-1 pl-2 border rounded"
+                  />
+                </label>
+                <div id="buttons" className="flex gap-4">
+                  <input
+                    type="submit"
+                    value="Update Category"
+                    className="w-max px-2 py-1 border rounded bg-[#ccffcc]"
+                  />
+                  <button
+                    onClick={formDelete}
+                    className="border bg-[#f4a4a4] rounded px-2 py-1"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </form>
+              {showMessage ? (
+                <CategoryMessage
+                  products={relatedProducts}
+                  closeMessage={() => {
+                    setShowMessage(false);
+                  }}
+                />
+              ) : null}
+            </div>
           </div>
         )}
-      </div>
+      </>
     );
   }
 };

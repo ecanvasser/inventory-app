@@ -6,7 +6,7 @@ const ModelMessage = ({ products, closeMessage }) => {
   return (
     <div
       id="message-container"
-      className="border-2 border-[#ff3333] bg-[#ffe6e6] rounded-xl w-10/12 px-4 py-2 mt-8 animate__animated animate__fadeIn"
+      className="border-2 border-[#ff3333] bg-[#ffe6e6] rounded-xl w-10/12 sm:max-w-max px-4 py-2 mt-8 animate__animated animate__fadeIn"
     >
       <div id="error-text" className="flex flex-col">
         <div

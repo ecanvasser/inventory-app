@@ -136,12 +136,12 @@ const Inventory = () => {
 
   if (searchProducts.length > 0) {
     return (
-      <div
-        id="inventory-container"
-        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
-      >
+      <>
         {showLinks ? (
-          <>
+          <div
+            id="inventory-container"
+            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
@@ -150,7 +150,7 @@ const Inventory = () => {
             <div className="flex flex-col items-center gap-10 animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
-          </>
+          </div>
         ) : isMobile ? (
           <div
             id="inventory-container"
@@ -224,18 +224,18 @@ const Inventory = () => {
             </div>
           </div>
         )}
-      </div>
+      </>
     );
   }
 
   if (filteredProducts.length > 0) {
     return (
-      <div
-        id="inventory-container"
-        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
-      >
+      <>
         {showLinks ? (
-          <>
+          <div
+            id="inventory-container"
+            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
@@ -244,7 +244,7 @@ const Inventory = () => {
             <div className="flex flex-col items-center gap-10 animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
-          </>
+          </div>
         ) : isMobile ? (
           <div
             id="inventory-container"
@@ -315,18 +315,18 @@ const Inventory = () => {
             </div>
           </div>
         )}
-      </div>
+      </>
     );
   }
 
   if (products) {
     return (
-      <div
-        id="inventory-container"
-        className="grid grid-rows-[0.3fr_1.7fr] h-screen"
-      >
+      <>
         {showLinks ? (
-          <>
+          <div
+            id="inventory-container"
+            className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+          >
             <Navbar
               handleNav={() => {
                 setShowLinks(!showLinks);
@@ -335,7 +335,7 @@ const Inventory = () => {
             <div className="flex flex-col items-center gap-10 animate__animated animate__fadeInRight">
               <NavbarLinks />
             </div>
-          </>
+          </div>
         ) : isMobile ? (
           <div
             id="inventory-container"
@@ -406,7 +406,7 @@ const Inventory = () => {
             </div>
           </div>
         )}
-      </div>
+      </>
     );
   }
 };
