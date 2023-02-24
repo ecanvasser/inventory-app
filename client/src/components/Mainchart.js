@@ -75,9 +75,9 @@ const Mainchart = () => {
             <div className="text-base font-normal mt-5">Total Inventory</div>
             <div className="text-4xl font-bold">
               $
-              {products.reduce((acc, curr) => {
-                return curr.price * curr.quantity + Number(acc.toFixed(2));
-              }, 0)}
+              {Number(products.reduce((acc, curr) => {
+                return curr.price * curr.quantity + acc;
+              }, 0).toFixed(2))}
             </div>
             <div className="text-sm font-normal italic">Entire store</div>
           </div>
