@@ -6,7 +6,7 @@ const Middleicons = () => {
       <Link to="/inventory">
         <div
           id="left-iconbox"
-          className="bg-[#8FBC8F] flex flex-col items-center text-4xl font-bold px-10 py-16 rounded-2xl"
+          className="bg-[#8FBC8F] border flex flex-col items-center text-4xl font-bold px-10 py-16 rounded-2xl"
         >
           Inventory
         </div>
@@ -14,7 +14,7 @@ const Middleicons = () => {
       <Link to="/admin-settings">
         <div
           id="right-iconbox"
-          className="bg-[#E9967A] flex flex-col items-center text-4xl font-bold px-10 py-16 rounded-2xl"
+          className="bg-[#E9967A] border flex flex-col items-center text-4xl font-bold px-10 py-16 rounded-2xl"
         >
           Admin Settings
         </div>

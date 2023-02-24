@@ -43,7 +43,7 @@ const Mainchart = () => {
       <>
         <div
           id="main-chart"
-          className="grid grid-rows-3 sm:grid-cols-3 sm:grid-rows-none sm:divide-none divide-y w-10/12 bg-[#FFEBCD] mt-10 py-8 rounded-2xl animate__animated animate__slideInRight"
+          className="grid grid-rows-3 border sm:grid-cols-3 sm:grid-rows-none sm:divide-none divide-y w-10/12 bg-[#FFEBCD] mt-10 py-8 rounded-2xl animate__animated animate__slideInRight"
         >
           <div
             id="total-products"

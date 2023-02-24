@@ -4,7 +4,7 @@ const InventoryTile = ({ data }) => {
   const [total, setTotal] = useState(Number((data.quantity * data.price).toFixed(2)));
 
   return (
-    <div id="product-container" className="grid grid-cols-3 sm:grid-cols-4 bg-[#D8BFD8] rounded-xl py-8 px-4">
+    <div id="product-container" className="grid grid-cols-3 border sm:grid-cols-4 bg-[#D8BFD8] rounded-xl py-8 px-4">
       <div id="car-fit" className="flex flex-col items-center text-center gap-5">
         <div id="carfit-top" className="text-lg font-bold">{`${data.name}`}</div>
         <div id="carfit-btm" className="italic text-sm">{`Fits: ${data.make} ${data.model}`}</div>

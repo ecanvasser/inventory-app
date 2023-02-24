@@ -20,7 +20,10 @@ const AdminSettings = () => {
   return (
     <>
       {showLinks ? (
-        <div id="settings-container" className="grid grid-rows-[0.3fr_1.7fr]">
+        <div
+          id="settings-container"
+          className="grid grid-rows-[0.3fr_1.7fr] h-screen"
+        >
           <Navbar handleNav={() => setShowLinks(!showLinks)} />
           <div className="flex flex-col gap-10 items-center animate__animated animate__fadeInRight">
             <NavbarLinks />
@@ -46,7 +49,7 @@ const AdminSettings = () => {
               <Link to="/vehicle-models" className="flex justify-center">
                 <div
                   id="models"
-                  className="bg-[#ccffcc] flex justify-center w-[400px] py-10 rounded-2xl"
+                  className="bg-[#ccffcc] border flex justify-center w-[400px] py-10 rounded-2xl"
                 >
                   Vehicle Models
                 </div>
@@ -54,7 +57,7 @@ const AdminSettings = () => {
               <Link to="/categories" className="flex justify-center">
                 <div
                   id="categories"
-                  className="bg-[#ccffcc] flex justify-center w-[400px] py-10 rounded-2xl"
+                  className="bg-[#ccffcc] border flex justify-center w-[400px] py-10 rounded-2xl"
                 >
                   Product Categories
                 </div>
@@ -62,7 +65,7 @@ const AdminSettings = () => {
               <Link to="/inventory/new" className="flex justify-center">
                 <div
                   id="add-product"
-                  className="bg-[#ccffcc] flex justify-center w-[400px] py-10 rounded-2xl"
+                  className="bg-[#ccffcc] border flex justify-center w-[400px] py-10 rounded-2xl"
                 >
                   Add New Product
                 </div>
@@ -70,7 +73,7 @@ const AdminSettings = () => {
               <Link to="/vehicle/new" className="flex justify-center">
                 <div
                   id="categories"
-                  className="bg-[#ccffcc] flex justify-center w-[400px] py-10 rounded-2xl"
+                  className="bg-[#ccffcc] border flex justify-center w-[400px] py-10 rounded-2xl"
                 >
                   Add New Model
                 </div>
@@ -78,7 +81,7 @@ const AdminSettings = () => {
               <Link to="/categories/new" className="flex justify-center">
                 <div
                   id="categories"
-                  className="bg-[#ccffcc] flex justify-center w-[400px] py-10 rounded-2xl"
+                  className="bg-[#ccffcc] border flex justify-center w-[400px] py-10 rounded-2xl"
                 >
                   Add New Category
                 </div>
@@ -96,10 +99,7 @@ const AdminSettings = () => {
             id="setting-links"
             className="mt-20 px-12 flex flex-col animate__animated animate__slideInLeft"
           >
-            <div
-              id="section-title"
-              className="text-4xl ml-10 font-extrabold"
-            >
+            <div id="section-title" className="text-4xl ml-10 font-extrabold">
               Admin Settings
             </div>
             <div
